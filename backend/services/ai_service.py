@@ -102,19 +102,54 @@ class AIService:
             logger.error(f"AI 해설 생성 실패 - 문제 ID: {problem_id}, 오류: {e}", exc_info=True)
             return f"AI 해설 생성 중 오류가 발생했습니다: {str(e)}"
     
-    def analyze_weakness(self, wrong_categories):
-        """약점 분석"""
+    def analyze_weakness(self, wrong_categories, time_info=None):
+        """약점 분석 (시간 정보 포함)"""
         try:
             if not wrong_categories:
                 return "모든 문제를 맞추셨습니다! 훌륭해요!"
-            
+
             logger.info(f"AI 약점 분석 요청 - {len(wrong_categories)}개 카테고리")
-            
+
+            # 시간 정보 문자열 생성
+            time_context = ""
+            if time_info:
+                total_time = time_info.get('total_time_spent', 0)
+                time_limit = time_info.get('time_limit', 1800)
+                is_overtime = time_info.get('is_overtime', False)
+
+                minutes = total_time // 60
+                seconds = total_time % 60
+                limit_minutes = time_limit // 60
+
+                if is_overtime:
+                    overtime_seconds = total_time - time_limit
+                    overtime_minutes = overtime_seconds // 60
+                    overtime_secs = overtime_seconds % 60
+                    time_context = (
+                        f"\n\n**시간 분석:**\n"
+                        f"- 제한 시간: {limit_minutes}분\n"
+                        f"- 실제 소요 시간: {minutes}분 {seconds}초\n"
+                        f"- 초과 시간: {overtime_minutes}분 {overtime_secs}초\n"
+                        f"- 학생이 제한 시간을 초과하여 문제를 풀었습니다. 시간 관리에 대한 조언도 포함해주세요.\n"
+                    )
+                else:
+                    saved_seconds = time_limit - total_time
+                    saved_minutes = saved_seconds // 60
+                    saved_secs = saved_seconds % 60
+                    time_context = (
+                        f"\n\n**시간 분석:**\n"
+                        f"- 제한 시간: {limit_minutes}분\n"
+                        f"- 실제 소요 시간: {minutes}분 {seconds}초\n"
+                        f"- 남은 시간: {saved_minutes}분 {saved_secs}초\n"
+                        f"- 학생이 제한 시간보다 빠르게 문제를 풀었습니다. 이 점을 긍정적으로 언급해주세요.\n"
+                    )
+
             user_prompt = (
-                f"학생이 틀린 문제의 카테고리 리스트입니다: {json.dumps(wrong_categories, ensure_ascii=False)}\n\n"
+                f"학생이 틀린 문제의 카테고리 리스트입니다: {json.dumps(wrong_categories, ensure_ascii=False)}\n"
+                f"{time_context}\n"
                 "학생의 약점을 진단하고 다음 학습을 추천해주세요."
             )
-            
+
             response = self.ai_client.models.generate_content(
                 model=Config.MODEL_FLASH,
                 contents=[
@@ -122,7 +157,7 @@ class AIService:
                     user_prompt
                 ]
             )
-            
+
             if response and hasattr(response, 'text') and response.text:
                 # ⭐ 줄바꿈을 <br>로 변환하지 않고 그대로 반환
                 analysis = response.text
@@ -131,7 +166,7 @@ class AIService:
             else:
                 logger.warning("AI 약점 분석 응답 형식 오류")
                 return "AI 약점 분석 중 문제가 발생했습니다."
-                
+
         except Exception as e:
             logger.error(f"AI 약점 분석 실패: {e}", exc_info=True)
             return f"AI 약점 분석 중 오류가 발생했습니다: {str(e)}"

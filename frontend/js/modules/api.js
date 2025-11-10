@@ -32,26 +32,36 @@ const API = {
     /**
      * 답안 제출 및 AI 분석 요청
      * @param {Array} answers - 답안 리스트
+     * @param {Object} timeInfo - 시간 정보 (optional)
      * @returns {Promise<Object>} 분석 결과
      */
-    async submitAnswers(answers) {
+    async submitAnswers(answers, timeInfo = null) {
         try {
+            const payload = { answers };
+
+            // 시간 정보가 있으면 추가
+            if (timeInfo) {
+                payload.total_time_spent = timeInfo.total_time_spent;
+                payload.time_limit = timeInfo.time_limit;
+                payload.is_overtime = timeInfo.is_overtime;
+            }
+
             const response = await fetch(`${CONFIG.API_URL}/submit_and_analyze`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ answers })
+                body: JSON.stringify(payload)
             });
-            
+
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(errorData.error || `서버 오류: ${response.status}`);
             }
-            
+
             const data = await response.json();
             return data;
-            
+
         } catch (error) {
             console.error('답안 제출 실패:', error);
             throw error;

@@ -12,7 +12,14 @@ const UI = {
         analysisReportDiv: null,
         messageDiv: null,
         startBtn: null,
-        submitBtn: null
+        submitBtn: null,
+        timerContainer: null,
+        timerDisplay: null,
+        modalOverlay: null,
+        modalMessage: null,
+        timeoutModal: null,
+        continueBtn: null,
+        submitNowBtn: null
     },
     
     /**
@@ -28,7 +35,14 @@ const UI = {
             analysisReportDiv: document.getElementById('ai-analysis-report'),
             messageDiv: document.getElementById('message-container'),
             startBtn: document.getElementById('start-test-btn'),
-            submitBtn: document.getElementById('submit-btn')
+            submitBtn: document.getElementById('submit-btn'),
+            timerContainer: document.getElementById('timer-container'),
+            timerDisplay: document.getElementById('timer-display'),
+            modalOverlay: document.getElementById('modal-overlay'),
+            modalMessage: document.getElementById('modal-message'),
+            timeoutModal: document.getElementById('timeout-modal'),
+            continueBtn: document.getElementById('continue-btn'),
+            submitNowBtn: document.getElementById('submit-now-btn')
         };
     },
     
@@ -183,21 +197,26 @@ const UI = {
             <h3 class="text-xl font-semibold text-blue-900 mb-2">종합 진단</h3>
             <div class="text-base">${formattedReport}</div>
         `;
-        
+
         // 문항별 해설
-        this.elements.resultDetailsDiv.innerHTML = 
+        this.elements.resultDetailsDiv.innerHTML =
             '<h3 class="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">문항별 상세 해설</h3>';
-        
+
         data.test_results.forEach((result, index) => {
             const resultEl = this.createResultElement(result, index);
             this.elements.resultDetailsDiv.appendChild(resultEl);
+
+            // 오답 문제에만 해설 토글 버튼 추가
+            if (!result.is_correct) {
+                this.addExplanationToggle(resultEl, index);
+            }
         });
-        
+
         // LaTeX 렌더링
         const problemTexts = this.elements.resultDetailsDiv.querySelectorAll('.problem-text-result');
         const explanations = this.elements.resultDetailsDiv.querySelectorAll('.ai-explanation');
         const reports = this.elements.analysisReportDiv.querySelectorAll('.text-base');
-        
+
         KatexRenderer.renderInElements(problemTexts);
         KatexRenderer.renderInElements(explanations);
         KatexRenderer.renderInElements(reports);
@@ -246,5 +265,104 @@ const UI = {
         }
         
         return resultEl;
+    },
+
+    /**
+     * 타이머 표시
+     */
+    showTimer() {
+        this.elements.timerContainer.classList.remove('hidden');
+    },
+
+    /**
+     * 타이머 숨김
+     */
+    hideTimer() {
+        this.elements.timerContainer.classList.add('hidden');
+    },
+
+    /**
+     * 타이머 업데이트
+     */
+    updateTimer(seconds) {
+        const minutes = Math.floor(Math.abs(seconds) / 60);
+        const secs = Math.abs(seconds) % 60;
+        const sign = seconds < 0 ? '-' : '';
+        this.elements.timerDisplay.textContent =
+            `${sign}${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+        // 색상 변경
+        this.elements.timerContainer.classList.remove('timer-normal', 'timer-warning', 'timer-danger');
+        if (seconds <= 0) {
+            this.elements.timerContainer.classList.add('timer-danger');
+        } else if (seconds <= CONFIG.TIMER.DANGER_TIME) {
+            this.elements.timerContainer.classList.add('timer-danger');
+        } else if (seconds <= CONFIG.TIMER.WARNING_TIME) {
+            this.elements.timerContainer.classList.add('timer-warning');
+        } else {
+            this.elements.timerContainer.classList.add('timer-normal');
+        }
+    },
+
+    /**
+     * 모달 표시
+     */
+    showModal() {
+        this.elements.modalOverlay.classList.remove('hidden');
+    },
+
+    /**
+     * 모달 숨김
+     */
+    hideModal() {
+        this.elements.modalOverlay.classList.add('hidden');
+    },
+
+    /**
+     * 시간 종료 모달 표시
+     */
+    showTimeoutModal() {
+        this.elements.timeoutModal.classList.remove('hidden');
+    },
+
+    /**
+     * 시간 종료 모달 숨김
+     */
+    hideTimeoutModal() {
+        this.elements.timeoutModal.classList.add('hidden');
+    },
+
+    /**
+     * 해설 토글 버튼 추가 (오답 문제에만)
+     */
+    addExplanationToggle(resultEl, index) {
+        const explanationDiv = resultEl.querySelector('.ai-explanation');
+        if (!explanationDiv) return;
+
+        // 기본적으로 해설 숨김
+        explanationDiv.style.display = 'none';
+
+        // 버튼 생성
+        const toggleBtn = document.createElement('button');
+        toggleBtn.className = 'mt-3 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition';
+        toggleBtn.textContent = '해설보기';
+        toggleBtn.dataset.visible = 'false';
+
+        // 토글 이벤트
+        toggleBtn.addEventListener('click', () => {
+            const isVisible = toggleBtn.dataset.visible === 'true';
+            if (isVisible) {
+                explanationDiv.style.display = 'none';
+                toggleBtn.textContent = '해설보기';
+                toggleBtn.dataset.visible = 'false';
+            } else {
+                explanationDiv.style.display = 'block';
+                toggleBtn.textContent = '해설 닫기';
+                toggleBtn.dataset.visible = 'true';
+            }
+        });
+
+        // 버튼을 해설 앞에 삽입
+        explanationDiv.parentElement.insertBefore(toggleBtn, explanationDiv);
     }
 };
