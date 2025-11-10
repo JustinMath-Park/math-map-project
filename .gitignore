@@ -1,0 +1,15 @@
+# Virtual environment
+venv/
+.venv/
+ENV/
+env/
+
+# Other projects (not part of math-map-project)
+math-map-backend/
+math-map-frontend/
+math_ai_project/
+my-mvp-backend/
+
+# OS
+.DS_Store
+Thumbs.db
