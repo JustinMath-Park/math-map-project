@@ -121,20 +121,20 @@ const UI = {
      */
     createProblemElement(problem, index) {
         const problemEl = document.createElement('div');
-        problemEl.className = 'border p-5 rounded-lg';
+        problemEl.className = 'border p-3 sm:p-4 md:p-5 rounded-lg bg-gray-50';
         problemEl.dataset.problemId = problem.problem_id;
-        
+
         // 문제 텍스트
         const textEl = document.createElement('div');
-        textEl.className = 'problem-text mb-4 text-gray-900';
-        textEl.innerHTML = `<b>Q ${index + 1}.</b> ${problem.text_latex}`;
-        
+        textEl.className = 'problem-text mb-3 sm:mb-4 text-gray-900 text-sm sm:text-base';
+        textEl.innerHTML = `<b class="text-base sm:text-lg">Q ${index + 1}.</b> ${problem.text_latex}`;
+
         // 선택지
         const choicesEl = this.createChoicesElement(problem);
-        
+
         problemEl.appendChild(textEl);
         problemEl.appendChild(choicesEl);
-        
+
         return problemEl;
     },
     
@@ -143,31 +143,31 @@ const UI = {
      */
     createChoicesElement(problem) {
         const choicesEl = document.createElement('div');
-        choicesEl.className = 'choices space-y-2';
-        
+        choicesEl.className = 'choices space-y-2 sm:space-y-3';
+
         if (Array.isArray(problem.choices)) {
             problem.choices.forEach(choice => {
                 const choiceMatch = choice.match(/^([A-D])\)\s*(.*)$/);
                 const choiceValue = choiceMatch ? choiceMatch[1] : choice;
                 const choiceLabel = choice;
-                
+
                 choicesEl.innerHTML += `
-                    <label class="block flex items-center p-3 rounded-md border hover:bg-gray-50 cursor-pointer">
-                        <input type="radio" name="problem-${problem.problem_id}" value="${choiceValue}" class="mr-3">
-                        <span class="choice-text">${choiceLabel}</span>
+                    <label class="block flex items-center p-3 sm:p-3.5 rounded-md border border-gray-300 bg-white hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition-colors min-h-[48px]">
+                        <input type="radio" name="problem-${problem.problem_id}" value="${choiceValue}" class="mr-3 w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0">
+                        <span class="choice-text text-sm sm:text-base">${choiceLabel}</span>
                     </label>
                 `;
             });
         } else if (problem.choices === '주관식') {
             choicesEl.innerHTML = `
                 <label class="block">
-                    <span class="text-gray-700">주관식 답:</span>
-                    <input type="text" name="problem-${problem.problem_id}" 
-                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    <span class="text-gray-700 text-sm sm:text-base font-medium">주관식 답:</span>
+                    <input type="text" name="problem-${problem.problem_id}"
+                           class="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-3 text-sm sm:text-base">
                 </label>
             `;
         }
-        
+
         return choicesEl;
     },
     
@@ -228,42 +228,42 @@ const UI = {
     createResultElement(result, index) {
         const isCorrect = result.is_correct;
         const resultEl = document.createElement('div');
-        resultEl.className = `p-5 rounded-lg border-l-4 mb-4 ${
+        resultEl.className = `p-3 sm:p-4 md:p-5 rounded-lg border-l-4 mb-3 sm:mb-4 ${
             isCorrect ? 'border-green-500 bg-green-50' : 'border-red-500 bg-red-50'
         }`;
-        
-        const problemTextHtml = `<b>Q ${index + 1}.</b> ${result.text_latex || '문제 텍스트 없음'}`;
-        
+
+        const problemTextHtml = `<b class="text-sm sm:text-base">Q ${index + 1}.</b> ${result.text_latex || '문제 텍스트 없음'}`;
+
         if (isCorrect) {
             resultEl.innerHTML = `
-                <h4 class="text-lg font-semibold text-green-800">
+                <h4 class="text-base sm:text-lg font-semibold text-green-800">
                     문제 ${index + 1}: 정답 <span class="font-bold">✓</span>
                 </h4>
-                <div class="problem-text-result mt-2">${problemTextHtml}</div>
-                <p class="mt-2 text-green-700"><b>정답:</b> ${result.correct_answer}</p>
+                <div class="problem-text-result mt-2 text-sm sm:text-base">${problemTextHtml}</div>
+                <p class="mt-2 text-green-700 text-sm sm:text-base"><b>정답:</b> ${result.correct_answer}</p>
             `;
         } else {
             // ⭐ AI 해설을 formatText로 처리
             const formattedSolution = this.formatText(result.ai_solution || "해설 생성 중 오류가 발생했습니다.");
-            
+
             resultEl.innerHTML = `
-                <h4 class="text-lg font-semibold text-red-800">
+                <h4 class="text-base sm:text-lg font-semibold text-red-800">
                     문제 ${index + 1}: 오답 <span class="font-bold">✗</span>
                 </h4>
-                <div class="problem-text-result mt-2">${problemTextHtml}</div>
-                <p class="mt-2 text-red-700">
-                    <b>내 답안:</b> ${result.user_answer || '미제출'} | 
+                <div class="problem-text-result mt-2 text-sm sm:text-base">${problemTextHtml}</div>
+                <p class="mt-2 text-red-700 text-sm sm:text-base">
+                    <b>내 답안:</b> ${result.user_answer || '미제출'} |
                     <b>정답:</b> ${result.correct_answer}
                 </p>
-                <div class="mt-4 pt-4 border-t border-red-200">
-                    <h5 class="font-semibold text-red-900 mb-2">AI 튜터의 해설</h5>
-                    <div class="ai-explanation text-gray-700 whitespace-pre-wrap break-words max-w-full overflow-wrap-anywhere">
+                <div class="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-red-200">
+                    <h5 class="font-semibold text-red-900 mb-2 text-sm sm:text-base">AI 튜터의 해설</h5>
+                    <div class="ai-explanation text-gray-700 whitespace-pre-wrap break-words max-w-full overflow-wrap-anywhere text-sm sm:text-base">
                         ${formattedSolution}
                     </div>
                 </div>
             `;
         }
-        
+
         return resultEl;
     },
 
@@ -344,7 +344,7 @@ const UI = {
 
         // 버튼 생성
         const toggleBtn = document.createElement('button');
-        toggleBtn.className = 'mt-3 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition';
+        toggleBtn.className = 'mt-2 sm:mt-3 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 active:bg-blue-800 transition text-sm sm:text-base font-medium w-full sm:w-auto';
         toggleBtn.textContent = '해설보기';
         toggleBtn.dataset.visible = 'false';
 
