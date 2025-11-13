@@ -1,0 +1,58 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // 헬퍼 함수: 사용자가 인증되었는지 확인
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // 헬퍼 함수: 사용자가 본인의 데이터에 접근하는지 확인
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // 회원 사용자: 본인만 읽기/쓰기
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+
+      // 기존 test_history (호환성 유지)
+      match /test_history/{testId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // 새로운 계층적 구조: 테스트 세션
+      match /test_sessions/{sessionId} {
+        allow read, write: if isOwner(userId);
+
+        // 답변 서브컬렉션
+        match /answers/{answerId} {
+          allow read, write: if isOwner(userId);
+        }
+      }
+    }
+
+    // 게스트 사용자: 인증 없이 읽기/생성 가능
+    match /guest_users/{guestId} {
+      allow read, create: if true;
+      allow update, delete: if false;
+
+      match /test_history/{testId} {
+        allow read, create: if true;
+        allow update, delete: if false;
+      }
+    }
+
+    // 문제 은행: 모든 사용자 읽기 가능, 쓰기는 백엔드만
+    match /problems/{problemId} {
+      allow read: if true;
+      allow write: if false;  // 백엔드 Admin SDK만 가능
+    }
+
+    // 커리큘럼: 모든 사용자 읽기 가능
+    match /curriculum/{curriculumId} {
+      allow read: if true;
+      allow write: if false;
+    }
+  }
+}

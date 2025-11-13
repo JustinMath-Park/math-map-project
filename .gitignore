@@ -13,3 +13,11 @@ my-mvp-backend/
 # OS
 .DS_Store
 Thumbs.db
+
+# Workflow configuration (contains secrets)
+config/workflow_config.json
+install_workflow.sh
+workflow.py
+
+# Claude Code
+.claude/

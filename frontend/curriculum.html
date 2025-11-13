@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathiter - 커리큘럼 브라우저</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .curriculum-selector {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .curriculum-selector h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .curriculum-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .curriculum-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            padding: 25px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .curriculum-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .curriculum-card h3 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .curriculum-card .subject {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+            opacity: 0.9;
+        }
+
+        .curriculum-card .version {
+            font-size: 1em;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .curriculum-card .description {
+            font-size: 0.95em;
+            line-height: 1.5;
+            opacity: 0.9;
+        }
+
+        .curriculum-detail {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+
+        .curriculum-detail.active {
+            display: block;
+        }
+
+        .back-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-bottom: 20px;
+            transition: background 0.3s;
+        }
+
+        .back-button:hover {
+            background: #5568d3;
+        }
+
+        .detail-header {
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .detail-header h2 {
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .detail-header .meta {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .domain {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+        }
+
+        .domain h3 {
+            color: #667eea;
+            font-size: 1.6em;
+            margin-bottom: 10px;
+        }
+
+        .domain .domain-meta {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 15px;
+        }
+
+        .topic {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .topic h4 {
+            color: #333;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .subtopics {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .subtopics li {
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+            color: #555;
+        }
+
+        .subtopics li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .loading {
+            text-align: center;
+            color: white;
+            font-size: 1.5em;
+            padding: 50px;
+        }
+
+        .error {
+            background: #ff4444;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-right: 8px;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .curriculum-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Mathiter 커리큘럼 브라우저</h1>
+            <p>SAT, IGCSE 수학 공식 커리큘럼 탐색</p>
+        </div>
+
+        <div id="loading" class="loading">커리큘럼 데이터 로딩 중...</div>
+        <div id="error" class="error" style="display: none;"></div>
+
+        <div id="curriculum-list" class="curriculum-selector" style="display: none;">
+            <h2>커리큘럼 선택</h2>
+            <div id="curriculum-grid" class="curriculum-grid"></div>
+        </div>
+
+        <div id="curriculum-detail" class="curriculum-detail"></div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'https://my-mvp-backend-1093137562151.asia-northeast3.run.app';
+        let curriculumData = null;
+
+        // 페이지 로드 시 커리큘럼 목록 가져오기
+        async function loadCurriculums() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/curriculums`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('curriculum-list').style.display = 'block';
+
+                displayCurriculumList(data);
+            } catch (error) {
+                console.error('커리큘럼 로드 실패:', error);
+                document.getElementById('loading').style.display = 'none';
+                const errorDiv = document.getElementById('error');
+                errorDiv.textContent = '커리큘럼 데이터를 불러오는데 실패했습니다: ' + error.message;
+                errorDiv.style.display = 'block';
+            }
+        }
+
+        // 커리큘럼 목록 표시
+        function displayCurriculumList(curriculums) {
+            const grid = document.getElementById('curriculum-grid');
+            grid.innerHTML = '';
+
+            curriculums.forEach(curriculum => {
+                const card = document.createElement('div');
+                card.className = 'curriculum-card';
+                card.onclick = () => loadCurriculumDetail(curriculum.curriculum_id);
+
+                card.innerHTML = `
+                    <h3>${curriculum.exam_type}</h3>
+                    <div class="subject">${curriculum.subject}</div>
+                    <div class="version">${curriculum.version}</div>
+                    <div class="description">${curriculum.description}</div>
+                `;
+
+                grid.appendChild(card);
+            });
+        }
+
+        // 커리큘럼 상세 정보 가져오기
+        async function loadCurriculumDetail(curriculumId) {
+            try {
+                document.getElementById('loading').style.display = 'block';
+                document.getElementById('curriculum-list').style.display = 'none';
+
+                const response = await fetch(`${API_BASE_URL}/curriculums/${curriculumId}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                curriculumData = await response.json();
+
+                document.getElementById('loading').style.display = 'none';
+                displayCurriculumDetail(curriculumData);
+            } catch (error) {
+                console.error('커리큘럼 상세 로드 실패:', error);
+                document.getElementById('loading').style.display = 'none';
+                const errorDiv = document.getElementById('error');
+                errorDiv.textContent = '커리큘럼 상세 정보를 불러오는데 실패했습니다: ' + error.message;
+                errorDiv.style.display = 'block';
+            }
+        }
+
+        // 커리큘럼 상세 정보 표시
+        function displayCurriculumDetail(curriculum) {
+            const detailDiv = document.getElementById('curriculum-detail');
+            detailDiv.className = 'curriculum-detail active';
+
+            let html = `
+                <button class="back-button" onclick="goBack()">← 목록으로 돌아가기</button>
+                <div class="detail-header">
+                    <h2>${curriculum.exam_type} - ${curriculum.subject}</h2>
+                    <div class="meta">
+                        <strong>버전:</strong> ${curriculum.version}<br>
+                        <strong>설명:</strong> ${curriculum.description}
+                    </div>
+            `;
+
+            // 시험 포맷 정보 (있는 경우)
+            if (curriculum.test_format) {
+                html += `
+                    <div style="margin-top: 15px;">
+                        <span class="badge">총 문항: ${curriculum.test_format.total_questions}개</span>
+                        <span class="badge">시험 시간: ${curriculum.test_format.time_limit_minutes}분</span>
+                        ${curriculum.test_format.calculator_allowed ? `<span class="badge">계산기: ${curriculum.test_format.calculator_allowed}</span>` : ''}
+                    </div>
+                `;
+            }
+
+            html += `</div>`;
+
+            // 도메인 및 토픽 표시
+            if (curriculum.domains) {
+                curriculum.domains.forEach(domain => {
+                    html += `
+                        <div class="domain">
+                            <h3>${domain.name}</h3>
+                            <div class="domain-meta">
+                                ${domain.description}<br>
+                                ${domain.weight ? `<strong>비중:</strong> ${domain.weight}` : ''}
+                            </div>
+                    `;
+
+                    // 토픽 표시
+                    if (domain.topics) {
+                        domain.topics.forEach(topic => {
+                            html += `
+                                <div class="topic">
+                                    <h4>${topic.name}</h4>
+                            `;
+
+                            // 레벨 정보 (IGCSE용)
+                            if (topic.core_level !== undefined) {
+                                html += `<div style="margin-bottom: 10px; color: #666;">`;
+                                if (topic.core_level) html += `<span class="badge">Core</span>`;
+                                if (topic.extended_level) html += `<span class="badge">Extended</span>`;
+                                html += `</div>`;
+                            }
+
+                            // 서브토픽 표시
+                            if (topic.subtopics && topic.subtopics.length > 0) {
+                                html += `<ul class="subtopics">`;
+                                topic.subtopics.forEach(subtopic => {
+                                    html += `<li>${subtopic}</li>`;
+                                });
+                                html += `</ul>`;
+                            }
+
+                            html += `</div>`;
+                        });
+                    }
+
+                    html += `</div>`;
+                });
+            }
+
+            detailDiv.innerHTML = html;
+        }
+
+        // 목록으로 돌아가기
+        function goBack() {
+            document.getElementById('curriculum-detail').className = 'curriculum-detail';
+            document.getElementById('curriculum-list').style.display = 'block';
+        }
+
+        // 페이지 로드 시 실행
+        window.addEventListener('DOMContentLoaded', loadCurriculums);
+    </script>
+</body>
+</html>

@@ -1,3 +1,4 @@
+from google.cloud import firestore
 from utils.logger import setup_logger
 
 logger = setup_logger(__name__)
@@ -125,7 +126,7 @@ class ProblemService:
             doc_ref = self.db.collection('problems').document(problem_id)
             doc_ref.update({
                 'explanation': explanation,
-                'explanation_generated_at': self.db.SERVER_TIMESTAMP
+                'explanation_generated_at': firestore.SERVER_TIMESTAMP
             })
             logger.info(f"문제 {problem_id} 해설 캐싱 성공")
             return True

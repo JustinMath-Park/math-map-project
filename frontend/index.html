@@ -1,214 +1,43 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Math Level Test</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- KaTeX CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-    
-    <!-- KaTeX JS -->
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-    
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>서비스 이용 불가</title>
     <style>
-        body { 
-            font-family: 'Inter', sans-serif; 
-        }
-        .katex { 
-            font-size: 1.25rem; 
-        }
-
-        /* ⭐ 텍스트 줄바꿈 및 오버플로우 방지 */
-        .ai-explanation {
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            word-break: break-word;
-            white-space: pre-wrap;
-            max-width: 100%;
-        }
-    
-        .text-base {
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-        }
-    
-    /* 컨테이너 최대 너비 설정 */
-        .container {
-            max-width: 100%;
-            overflow-x: hidden;
-        }   
-
-        /* ⭐ 페이드인 애니메이션 */
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
-    .fade-in {
-        animation: fadeIn 0.5s ease-out;
-    }
-    
-    /* 부드러운 스크롤 */
-    html {
-        scroll-behavior: smooth;
-    }
-
-    /* 타이머 고정 위치 */
-    .timer-fixed {
-        position: fixed;
-        top: 10px;
-        right: 10px;
-        z-index: 1000;
-        background: white;
-        padding: 8px 16px;
-        border-radius: 6px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        font-weight: bold;
-        font-size: 1rem;
-    }
-
-    @media (min-width: 640px) {
-        .timer-fixed {
-            top: 20px;
-            right: 20px;
-            padding: 12px 20px;
-            font-size: 1.25rem;
-        }
-    }
-
-    /* 타이머 색상 */
-    .timer-normal { color: #000000; }
-    .timer-warning { color: #f97316; }
-    .timer-danger { color: #ef4444; }
-
-    /* 로딩 스피너 */
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-
-    .spinner {
-        border: 4px solid #f3f3f3;
-        border-top: 4px solid #3b82f6;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        animation: spin 1s linear infinite;
-        margin: 0 auto 16px;
-    }
-
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+      .container {
+        text-align: center;
+        padding: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        max-width: 500px;
+      }
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+      }
+      p {
+        font-size: 1.2rem;
+        line-height: 1.6;
+      }
     </style>
-
-</head>
-<body class="bg-gray-100 text-gray-800">
-
-    <!-- 타이머 (고정 위치) -->
-    <div id="timer-container" class="timer-fixed timer-normal hidden">
-        <span id="timer-display">30:00</span>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🚫 서비스 이용 불가</h1>
+      <p>이 페이지는 현재 비활성화되었습니다.</p>
+      <p>정식 서비스는 Wix를 통해 제공됩니다.</p>
     </div>
-
-    <!-- AI 확인 모달 -->
-    <div id="modal-overlay" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-4">
-        <div class="bg-white rounded-lg p-6 sm:p-8 shadow-2xl max-w-md w-full mx-4">
-            <div class="spinner"></div>
-            <p id="modal-message" class="text-center font-semibold text-blue-600 text-sm sm:text-base">
-                답안 제출 중... AI가 분석하고 있습니다...
-            </p>
-        </div>
-    </div>
-
-    <!-- 시간 종료 팝업 -->
-    <div id="timeout-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-4">
-        <div class="bg-white rounded-lg p-6 sm:p-8 shadow-2xl max-w-md w-full mx-4">
-            <h3 class="text-xl sm:text-2xl font-bold text-center text-red-600 mb-3 sm:mb-4">⏰ 시간이 종료되었습니다!</h3>
-            <p class="text-center text-gray-700 mb-4 sm:mb-6 text-sm sm:text-base">
-                제한 시간 30분이 경과했습니다.<br>
-                계속 문제를 푸시겠습니까?
-            </p>
-            <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                <button id="continue-btn" class="flex-1 bg-blue-600 text-white font-bold py-3 px-4 sm:px-6 rounded-lg hover:bg-blue-700 transition text-sm sm:text-base">
-                    계속 풀이하기
-                </button>
-                <button id="submit-now-btn" class="flex-1 bg-green-600 text-white font-bold py-3 px-4 sm:px-6 rounded-lg hover:bg-green-700 transition text-sm sm:text-base">
-                    지금 제출하기
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <div class="container mx-auto max-w-2xl px-4 sm:px-6 py-4 sm:py-6">
-        <!-- 헤더 -->
-        <header class="text-center mb-6 sm:mb-8">
-            <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-800">
-                AI 기반 맞춤형 레벨 테스트
-            </h1>
-            <p class="text-sm sm:text-base md:text-lg text-gray-600 mt-2">
-                당신의 수학적 약점을 AI가 정확히 진단해 드립니다.
-            </p>
-        </header>
-
-        <!-- Step 1: 테스트 시작 -->
-        <div id="start-section" class="text-center">
-            <button id="start-test-btn" 
-                    class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300">
-                레벨 테스트 시작하기
-            </button>
-        </div>
-
-        <!-- Step 2: 문제 풀이 섹션 -->
-        <div id="problem-section" class="hidden bg-white p-4 sm:p-6 md:p-8 rounded-xl shadow-2xl">
-            <h2 class="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 border-b pb-3 sm:pb-4">문제 풀이</h2>
-            <div id="problem-container" class="space-y-4 sm:space-y-6 md:space-y-8">
-                <!-- 문제가 여기에 동적으로 추가됩니다 -->
-            </div>
-            <button id="submit-btn"
-                    class="mt-6 sm:mt-8 md:mt-10 w-full bg-green-600 text-white font-bold py-3 rounded-lg shadow-lg hover:bg-green-700 transition duration-300 text-sm sm:text-base">
-                답안 제출 및 AI 분석 받기
-            </button>
-        </div>
-
-        <!-- Step 3: 결과 분석 섹션 -->
-        <div id="result-section" class="hidden bg-white p-4 sm:p-6 md:p-8 rounded-xl shadow-2xl mt-6 sm:mt-8 md:mt-10">
-            <h2 class="text-2xl sm:text-3xl font-bold text-center text-blue-800 mb-4 sm:mb-6">
-                AI 진단 리포트
-            </h2>
-
-            <!-- AI 종합 진단 -->
-            <div id="ai-analysis-report" class="bg-blue-50 border-l-4 border-blue-500 p-4 sm:p-6 rounded-lg mb-6 sm:mb-8">
-                <h3 class="text-lg sm:text-xl font-semibold text-blue-900 mb-2">종합 진단</h3>
-                <p class="text-sm sm:text-base">AI가 분석 중입니다...</p>
-            </div>
-
-            <!-- 문항별 해설 -->
-            <div id="result-details" class="space-y-4 sm:space-y-6">
-                <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4 border-b pb-2">
-                    문항별 상세 해설
-                </h3>
-                <!-- 결과가 여기에 동적으로 추가됩니다 -->
-            </div>
-        </div>
-
-        <!-- 메시지 컨테이너 -->
-        <div id="message-container" class="text-center p-4"></div>
-    </div>
-
-    <!-- JavaScript 모듈 로드 (순서 중요) -->
-    <script src="js/config.js"></script>
-    <script src="js/modules/state.js"></script>
-    <script src="js/modules/api.js"></script>
-    <script src="js/modules/katex-helper.js"></script>
-    <script src="js/modules/ui.js"></script>
-    <script src="js/app.js"></script>
-
-</body>
+  </body>
 </html>

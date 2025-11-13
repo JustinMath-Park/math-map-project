@@ -11,26 +11,26 @@ class AIService:
     def __init__(self, ai_client):
         self.ai_client = ai_client
     
-    def generate_solution(self, problem_id, problem_text, user_answer, correct_answer, db_solution=None):
-        """문제 해설 생성"""
+    def generate_solution(self, problem_id, problem_text, correct_answer, db_solution=None):
+        """문제 해설 생성 (일반 해설, user_answer 불필요)"""
         try:
             if db_solution:
                 solution_guide = (
-                    f"학생에게 제공된 '모범 풀이'를 기반으로 하되, 단순히 복사하지 말고, "
+                    f"아래 '모범 풀이'를 기반으로 하되, 단순히 복사하지 말고, "
                     f"각 단계가 **'왜(Why)'** 그렇게 되는지 논리적인 이유를 덧붙여 단계별로 설명해주세요.\n\n"
                     f"**[참고용 모범 풀이]:** {db_solution}\n\n"
                 )
             else:
                 solution_guide = (
-                    "학생에게 풀이가 제공되지 않았습니다. 문제를 직접 풀고, "
+                    "모범 풀이가 제공되지 않았습니다. 문제를 직접 풀고, "
                     "학생이 이해할 수 있도록 **해당 공식이나 정리**가 왜 적용되었는지 설명하며 "
                     "단계별로 풀이 과정을 생성해주세요.\n\n"
                 )
-            
+
             user_prompt = (
-                f"이 문제를 틀렸어요. 왜 답이 {correct_answer}인가요?\n\n"
+                f"다음 문제의 정답은 {correct_answer}입니다. 이 답이 나오는 과정을 단계별로 설명해주세요.\n\n"
                 f"**문제:** {problem_text}\n\n"
-                f"**내 답안:** {user_answer}\n\n"
+                f"**정답:** {correct_answer}\n\n"
                 f"{solution_guide}"
                 "**LaTeX 사용 규칙 (매우 중요!):**\n"
                 "1. LaTeX는 숫자와 영문자만: $2x + 5 = 10$, $\\frac{{a}}{{b}}$\n"

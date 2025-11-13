@@ -17,6 +17,7 @@ class Config:
     
     # CORS 설정
     FRONTEND_URL = os.getenv('FRONTEND_URL', 'https://my-mvp-backend.web.app')
+    WIX_SITE_URL = os.getenv('WIX_SITE_URL', 'https://www.mathiter.com')
     
     # 서버 설정
     PORT = int(os.getenv('PORT', 5001))
