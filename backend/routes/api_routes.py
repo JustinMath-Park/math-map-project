@@ -202,7 +202,26 @@ def create_api_routes(db, ai_client):
 
         except Exception as e:
             logger.error(f"답안 처리 실패: {e}", exc_info=True)
-            return jsonify({'error': f'서버 오류: {str(e)}'}), 500
+
+            # 에러 타입에 따라 다른 메시지 반환
+            error_message = '서버 오류가 발생했습니다.'
+            error_type = 'SERVER_ERROR'
+
+            error_str = str(e).lower()
+            if 'timeout' in error_str or 'deadline' in error_str:
+                error_message = '네트워크 연결이 느립니다. 안정적인 Wi-Fi 환경에서 다시 시도해주세요.'
+                error_type = 'NETWORK_TIMEOUT'
+            elif 'network' in error_str or 'connection' in error_str:
+                error_message = '네트워크 연결에 문제가 있습니다. 인터넷 연결을 확인하고 다시 시도해주세요.'
+                error_type = 'NETWORK_ERROR'
+            elif 'unavailable' in error_str or 'service' in error_str:
+                error_message = '서버에 일시적인 문제가 발생했습니다. 잠시 후 다시 시도해주세요.'
+                error_type = 'SERVICE_UNAVAILABLE'
+
+            return jsonify({
+                'error': error_message,
+                'error_type': error_type
+            }), 500
 
     # ==================== 게스트 사용자 API ====================
 

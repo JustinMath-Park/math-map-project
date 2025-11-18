@@ -2,6 +2,7 @@ import json
 import re  # ⭐ 이 줄 추가!
 from config import Config
 from utils.logger import setup_logger
+from utils.ai_client import call_ai_with_retry
 
 logger = setup_logger(__name__)
 
@@ -46,13 +47,16 @@ class AIService:
             )
             
             logger.info(f"AI 해설 생성 요청 - 문제 ID: {problem_id}")
-            
-            response = self.ai_client.models.generate_content(
+
+            # 재시도 로직 포함 AI 호출
+            response = call_ai_with_retry(
+                client=self.ai_client,
                 model=Config.MODEL_FLASH,
                 contents=[
                     Config.SOLUTION_SYSTEM_PROMPT,
                     user_prompt
-                ]
+                ],
+                max_retries=3
             )
             
             if response and hasattr(response, 'text') and response.text:
@@ -150,12 +154,15 @@ class AIService:
                 "학생의 약점을 진단하고 다음 학습을 추천해주세요."
             )
 
-            response = self.ai_client.models.generate_content(
+            # 재시도 로직 포함 AI 호출
+            response = call_ai_with_retry(
+                client=self.ai_client,
                 model=Config.MODEL_FLASH,
                 contents=[
                     Config.ANALYSIS_SYSTEM_PROMPT,
                     user_prompt
-                ]
+                ],
+                max_retries=3
             )
 
             if response and hasattr(response, 'text') and response.text:
