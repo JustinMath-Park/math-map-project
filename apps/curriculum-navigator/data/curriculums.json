@@ -1,0 +1,876 @@
+{
+  "sat_math_2024": {
+    "exam_type": "SAT",
+    "subject": "Math",
+    "version": "2024",
+    "description": "College Board Digital SAT Math domains aligned to blueprint (Calculator section).",
+    "domains": [
+      {
+        "id": "algebra",
+        "name": "Algebra",
+        "summary": "Linear equations, inequalities, and systems.",
+        "topics": [
+          {
+            "id": "linear-equations",
+            "title": "Linear Equations",
+            "summary": "Solve for unknowns with inverse operations and balancing techniques.",
+            "objectives": [
+              "Solve multi-step equations and inequalities.",
+              "Translate word problems into linear models."
+            ],
+            "examples": ["3x - 7 = 11", "2(x - 5) = 3x + 4"]
+          },
+          {
+            "id": "systems",
+            "title": "Systems of Equations",
+            "summary": "Analyze two-variable linear systems from real contexts.",
+            "objectives": [
+              "Solve systems by substitution or elimination.",
+              "Interpret points of intersection in context."
+            ],
+            "examples": ["x + y = 12, 2x - y = 3"]
+          },
+          {
+            "id": "linear-functions",
+            "title": "Linear Functions & Graphs",
+            "summary": "Slope, intercepts, transformations of lines.",
+            "objectives": [
+              "Determine slope from tables or graphs.",
+              "Model scenarios using y = mx + b."
+            ],
+            "examples": ["Find slope from two points", "Compare growth rates"]
+          }
+        ]
+      },
+      {
+        "id": "advanced-math",
+        "name": "Advanced Math",
+        "summary": "Nonlinear expressions, functions, and exponentials.",
+        "topics": [
+          {
+            "id": "quadratics",
+            "title": "Quadratic Functions",
+            "summary": "Vertex form, factoring, quadratic formula applications.",
+            "objectives": [
+              "Factor quadratic expressions.",
+              "Solve quadratic equations (factoring, completing square, formula).",
+              "Analyze vertex and axis of symmetry."
+            ],
+            "examples": ["x^2 - 5x + 6 = 0", "y = (x-2)^2 + 3"]
+          },
+          {
+            "id": "function-analysis",
+            "title": "Function Composition & Inverses",
+            "summary": "Work with composite functions, even/odd, inverse relationships.",
+            "objectives": [
+              "Evaluate composite functions at given values.",
+              "Determine if inverse is a function.",
+              "Describe transformations."
+            ],
+            "examples": ["f(g(2)) given tables", "Graph reflections"]
+          },
+          {
+            "id": "exponentials",
+            "title": "Exponential Functions",
+            "summary": "Growth/decay models and logarithmic interpretation for SAT.",
+            "objectives": [
+              "Interpret exponential growth parameters.",
+              "Solve exponential equations with logarithms."
+            ],
+            "examples": ["A = 500(1.06)^t", "log base operations"]
+          }
+        ]
+      },
+      {
+        "id": "problem-solving",
+        "name": "Problem Solving and Data Analysis",
+        "summary": "Ratios, proportional relationships, percentages, and statistics.",
+        "topics": [
+          {
+            "id": "ratios",
+            "title": "Ratios and Proportions",
+            "summary": "Scale models, percent increase/decrease, unit rate comparisons.",
+            "objectives": ["Model proportional relationships.", "Solve multi-step percent problems."],
+            "examples": ["If 3 kg cost $18, what is the cost of 7 kg?", "Percent change scenario"]
+          },
+          {
+            "id": "percents",
+            "title": "Percent Growth & Decay",
+            "summary": "Markup/markdown, compound percentage change, financial modeling.",
+            "objectives": [
+              "Convert between percent and decimal multipliers.",
+              "Chain multiple percent changes."
+            ],
+            "examples": ["Item increased by 8% then discounted 15% — net change?"]
+          },
+          {
+            "id": "statistics",
+            "title": "Statistics & Probability",
+            "summary": "Center and spread, data interpretation, probability questions.",
+            "objectives": [
+              "Compute mean, median, standard deviation insights.",
+              "Interpret scatterplots and two-way tables.",
+              "Use probability rules from context."
+            ],
+            "examples": ["Interpret slope of best-fit line", "Conditional probability table"]
+          }
+        ]
+      },
+      {
+        "id": "geometry-trig",
+        "name": "Geometry and Trigonometry",
+        "summary": "Coordinate geometry, circles, and right-triangle trigonometry.",
+        "topics": [
+          {
+            "id": "circle-theorems",
+            "title": "Circle Relationships",
+            "summary": "Arc/angle properties, equation of a circle, chords, tangents.",
+            "objectives": ["Apply arc/angle relationships.", "Use equation of a circle in coordinate plane."],
+            "examples": ["(x-3)^2 + (y+2)^2 = 16", "Find arc length"]
+          },
+          {
+            "id": "coordinate-geometry",
+            "title": "Coordinate Geometry",
+            "summary": "Parallel/perpendicular lines, midpoint, distance formula applications.",
+            "objectives": [
+              "Classify triangles/quadrilaterals using coordinate proofs.",
+              "Calculate slope relationships and segment ratios."
+            ],
+            "examples": ["Show diagonals of a rectangle are congruent", "Find point dividing segment in ratio"]
+          },
+          {
+            "id": "trigonometry",
+            "title": "Right Triangle Trigonometry",
+            "summary": "Basic sine/cosine/tangent, modeling with trig ratios.",
+            "objectives": ["Solve for missing sides using sine, cosine, tangent.", "Interpret trig ratios in modeling questions."],
+            "examples": ["sin(θ) = 5/13", "Height of a flagpole problem"]
+          }
+        ]
+      }
+    ]
+  },
+  "ap_calculus_ab_bc": {
+    "exam_type": "AP",
+    "subject": "Calculus AB/BC",
+    "version": "2024",
+    "description": "College Board AP Calculus course framework units.",
+    "domains": [
+      {
+        "id": "limits",
+        "name": "Limits and Continuity",
+        "summary": "Limit definitions, evaluation, continuity criteria.",
+        "topics": [
+          {
+            "id": "limits-definition",
+            "title": "Limit Definition & Evaluation",
+            "summary": "Formal and numerical approaches to limits.",
+            "objectives": [
+              "Evaluate limits algebraically and graphically.",
+              "Use one-sided limits and identify asymptotes.",
+              "Apply limit laws and squeeze theorem."
+            ],
+            "examples": ["lim_{x->0} (sin x)/x", "Check continuity at x=2 for piecewise function"]
+          },
+          {
+            "id": "continuity",
+            "title": "Continuity and Theorems",
+            "summary": "Continuity on intervals, IVT, EVT.",
+            "objectives": [
+              "Determine intervals of continuity.",
+              "Use Intermediate Value Theorem to justify solutions.",
+              "Apply Extreme Value Theorem to closed intervals."
+            ],
+            "examples": ["Show root exists between x=1 and x=2 for f(x)=x^3-5"]
+          }
+        ]
+      },
+      {
+        "id": "derivatives",
+        "name": "Differentiation",
+        "summary": "Definition of derivative, rules, applications.",
+        "topics": [
+          {
+            "id": "derivative-rules",
+            "title": "Derivative Rules",
+            "summary": "Power, product, quotient, chain, implicit differentiation.",
+            "objectives": [
+              "Differentiate compositions using the chain rule.",
+              "Apply implicit differentiation to related functions."
+            ],
+            "examples": ["Differentiate y = (3x^2 + 1)^5", "Implicitly differentiate x^2 + y^2 = 9"]
+          },
+          {
+            "id": "related-rates",
+            "title": "Related Rates",
+            "summary": "Model changing quantities using derivatives.",
+            "objectives": [
+              "Translate verbal rates to derivative equations.",
+              "Solve problems involving geometry or motion."
+            ],
+            "examples": ["Water leaking from conical tank", "Ladder sliding problem"]
+          }
+        ]
+      },
+      {
+        "id": "applications-derivatives",
+        "name": "Applications of Derivatives",
+        "summary": "Related rates, optimization, curve analysis.",
+        "topics": [
+          {
+            "id": "curve-analysis",
+            "title": "Curve Sketching & Optimization",
+            "summary": "Critical points, concavity, inflection points.",
+            "objectives": [
+              "Use first/second derivative tests to classify extrema.",
+              "Solve optimization word problems."
+            ],
+            "examples": ["Maximize area of fenced region", "Sketch f(x) = x^3 - 3x"]
+          },
+          {
+            "id": "motion",
+            "title": "Motion along a Line",
+            "summary": "Velocity, acceleration, particle motion interpretation.",
+            "objectives": [
+              "Analyze motion from position/velocity graphs.",
+              "Determine total distance travelled and direction changes."
+            ],
+            "examples": ["Given s(t), find when particle speeds up or slows down"]
+          }
+        ]
+      },
+      {
+        "id": "integration",
+        "name": "Integration",
+        "summary": "Definite integrals, FTC, substitution.",
+        "topics": [
+          {
+            "id": "integration-techniques",
+            "title": "Integration Techniques",
+            "summary": "Antiderivatives, substitution, integration by parts (BC).",
+            "objectives": [
+              "Evaluate definite integrals using substitution.",
+              "Apply integration by parts and partial fractions (BC)."
+            ],
+            "examples": ["∫ x e^{x^2} dx", "∫ x cos x dx"]
+          },
+          {
+            "id": "ftc",
+            "title": "Fundamental Theorem of Calculus",
+            "summary": "Connect antiderivatives and area accumulation.",
+            "objectives": [
+              "Use FTC to evaluate definite integrals.",
+              "Differentiate accumulation functions."
+            ],
+            "examples": ["d/dx ∫_1^x t^2 dt"]
+          }
+        ]
+      },
+      {
+        "id": "applications-integration",
+        "name": "Applications of Integration",
+        "summary": "Area, volume, differential equations.",
+        "topics": [
+          {
+            "id": "area-volume",
+            "title": "Area & Volume",
+            "summary": "Area between curves, solids of revolution.",
+            "objectives": [
+              "Compute area between intersecting curves.",
+              "Find volume using disk/washer/shell methods."
+            ],
+            "examples": ["Volume generated by rotating region around x-axis"]
+          },
+          {
+            "id": "differential-equations",
+            "title": "Differential Equations",
+            "summary": "Slope fields, separable equations, logistic models (BC).",
+            "objectives": [
+              "Sketch slope fields and solution curves.",
+              "Solve separable differential equations."
+            ],
+            "examples": ["dy/dx = y(1 - y/5), y(0) = 1"]
+          }
+        ]
+      },
+      {
+        "id": "series",
+        "name": "Infinite Series (BC)",
+        "summary": "Sequences, series tests, Taylor series.",
+        "topics": [
+          {
+            "id": "convergence-tests",
+            "title": "Convergence Tests",
+            "summary": "Integral, comparison, ratio, alternating series tests.",
+            "objectives": [
+              "Determine convergence of positive term series.",
+              "Apply alternating series and ratio tests."
+            ],
+            "examples": ["Test ∑ (n! / n^n) for convergence"]
+          },
+          {
+            "id": "power-series",
+            "title": "Power & Taylor Series",
+            "summary": "Represent functions as power series and determine intervals of convergence.",
+            "objectives": [
+              "Find Taylor series for common functions.",
+              "Use series to approximate function values."
+            ],
+            "examples": ["Maclaurin series for e^x up to x^4"]
+          }
+        ]
+      }
+    ]
+  },
+  "igcse_mathematics": {
+    "exam_type": "IGCSE",
+    "subject": "Mathematics",
+    "version": "2024",
+    "description": "Cambridge IGCSE Mathematics (0580) 2025 exam cycle strands.",
+    "domains": [
+      {
+        "id": "number",
+        "name": "Number",
+        "summary": "Integers, fractions, standard form, percentages.",
+        "topics": [
+          {
+            "id": "fractions",
+            "title": "Fractions & Percentages",
+            "summary": "Equivalent forms, recurring decimals, percentage change.",
+            "objectives": [
+              "Convert between fractions, decimals, percentages.",
+              "Solve reverse percentage problems."
+            ],
+            "examples": ["Find original price after 12% increase", "Express 0.27 recurring as a fraction"]
+          },
+          {
+            "id": "ratio-rate",
+            "title": "Ratio, Rate and Proportion",
+            "summary": "Direct/inverse proportion, compound units, currency/timescale problems.",
+            "objectives": [
+              "Model situations with direct or inverse proportions.",
+              "Manipulate compound measures (speed, density, pressure)."
+            ],
+            "examples": ["Water tank filling with varying rate", "Convert mph to m/s"]
+          },
+          {
+            "id": "standard-form",
+            "title": "Standard Form",
+            "summary": "Work with numbers 10^n and scientific notation.",
+            "objectives": [
+              "Convert large/small numbers to scientific notation.",
+              "Calculate with standard form."
+            ],
+            "examples": ["(3.2 × 10^5) + (7.4 × 10^4)"]
+          }
+        ]
+      },
+      {
+        "id": "algebra",
+        "name": "Algebra",
+        "summary": "Expressions, equations, inequalities, sequences.",
+        "topics": [
+          {
+            "id": "expansion",
+            "title": "Expansion & Factorisation",
+            "summary": "Binomial expansion, factorising quadratics.",
+            "objectives": ["Expand (ax + b)(cx + d).", "Factorise ax^2 + bx + c."],
+            "examples": ["Factorise 2x^2 + 7x + 3"]
+          },
+          {
+            "id": "simultaneous",
+            "title": "Simultaneous Equations",
+            "summary": "Linear-linear and linear-quadratic systems.",
+            "objectives": [
+              "Solve simultaneous equations algebraically.",
+              "Interpret graphical solutions."
+            ],
+            "examples": ["Solve y = 2x + 1, xy = 12"]
+          },
+          {
+            "id": "inequalities",
+            "title": "Inequalities & Regions",
+            "summary": "Solve and graph inequalities, describe feasible regions.",
+            "objectives": [
+              "Solve linear/quadratic inequalities.",
+              "Shade solution sets on number lines or coordinate planes."
+            ],
+            "examples": ["Represent -2 < x ≤ 4", "Find feasible region for system"]
+          },
+          {
+            "id": "sequences",
+            "title": "Sequences",
+            "summary": "Arithmetic/geometric sequences, nth term.",
+            "objectives": ["Find nth term formula.", "Identify sequence type from patterns."],
+            "examples": ["Find nth term of 5, 8, 11, ..."]
+          }
+        ]
+      },
+      {
+        "id": "geometry",
+        "name": "Geometry",
+        "summary": "Transformations, symmetry, vectors.",
+        "topics": [
+          {
+            "id": "transformations",
+            "title": "Transformations",
+            "summary": "Reflection, rotation, enlargement, translation on coordinate grid.",
+            "objectives": [
+              "Describe a transformation using matrix/vector notation.",
+              "Apply successive transformations."
+            ],
+            "examples": ["Describe transformation from shape A to B"]
+          },
+          {
+            "id": "vectors",
+            "title": "Vectors",
+            "summary": "Vector addition, scalar multiplication, proof with vectors.",
+            "objectives": ["Add vectors using column notation.", "Use vectors to prove geometric results."],
+            "examples": ["Given AB = (2,3), AC = (-1,4), find BC"]
+          },
+          {
+            "id": "circles",
+            "title": "Circle Geometry",
+            "summary": "Angles subtended by the same arc, cyclic quadrilaterals, tangents.",
+            "objectives": [
+              "Apply circle theorems to prove relationships.",
+              "Solve for missing angles/lengths in circle diagrams."
+            ],
+            "examples": ["Opposite angles in cyclic quad sum to 180°", "Tangents from a point are equal"]
+          }
+        ]
+      },
+      {
+        "id": "mensuration",
+        "name": "Mensuration",
+        "summary": "Perimeter, area, surface area, volume.",
+        "topics": [
+          {
+            "id": "surface-area",
+            "title": "Surface Area & Volume",
+            "summary": "Prisms, cylinders, spheres, composite solids.",
+            "objectives": [
+              "Calculate volume/surface area of standard solids.",
+              "Solve density/mass/volume problems."
+            ],
+            "examples": ["Volume of a frustum", "Mass = density × volume problems"]
+          }
+        ]
+      },
+      {
+        "id": "statistics",
+        "name": "Statistics & Probability",
+        "summary": "Data representation and probability models.",
+        "topics": [
+          {
+            "id": "data-handling",
+            "title": "Data Handling",
+            "summary": "Stem-and-leaf, cumulative frequency, box plots.",
+            "objectives": [
+              "Construct and interpret statistical diagrams.",
+              "Find median, quartiles from graphs."
+            ],
+            "examples": ["Draw cumulative frequency graph for height data"]
+          },
+          {
+            "id": "probability",
+            "title": "Probability",
+            "summary": "Tree diagrams, conditional probability, expected value.",
+            "objectives": [
+              "Use AND/OR rules for independent events.",
+              "Calculate expected number of outcomes."
+            ],
+            "examples": ["Probability of drawing two red balls without replacement"]
+          },
+          {
+            "id": "mixed-problems",
+            "title": "Mixed Application Problems",
+            "summary": "Combine statistics and probability to interpret real contexts.",
+            "objectives": [
+              "Compare data sets using summary statistics.",
+              "Apply probability to decision-making scenarios."
+            ],
+            "examples": ["Choose best product based on probability and payoff"]
+          }
+        ]
+      }
+    ]
+  },
+  "alevel_mathematics": {
+    "exam_type": "A-Level",
+    "subject": "Mathematics",
+    "version": "2024",
+    "description": "Cambridge International A Level Mathematics components.",
+    "domains": [
+      {
+        "id": "pure-math-1",
+        "name": "Pure Mathematics 1",
+        "summary": "Algebra, functions, coordinate geometry, calculus intro.",
+        "topics": [
+          {
+            "id": "pm1-algebra",
+            "title": "Algebra & Functions",
+            "summary": "Manipulate polynomials, factor expressions, work with function notation.",
+            "objectives": [
+              "Simplify rational expressions and algebraic fractions.",
+              "Solve quadratic and simultaneous equations.",
+              "Use composite and inverse functions."
+            ],
+            "examples": [
+              "Solve 3x^2 - 5x - 2 = 0",
+              "Find f^{-1}(x) for f(x) = (2x-3)/(x+4)"
+            ]
+          },
+          {
+            "id": "pm1-geometry",
+            "title": "Coordinate Geometry",
+            "summary": "Lines, circles, and basic conic manipulation.",
+            "objectives": [
+              "Find equations of lines given geometric constraints.",
+              "Use perpendicular/parallel conditions.",
+              "Determine intersection points of lines and circles."
+            ],
+            "examples": [
+              "Show diagonals of a rhombus are perpendicular in coordinate form."
+            ]
+          },
+          {
+            "id": "pm1-calculus",
+            "title": "Differentiation & Integration Intro",
+            "summary": "Basic derivative rules and anti-derivatives.",
+            "objectives": [
+              "Differentiate polynomials and simple exponentials.",
+              "Apply differentiation to stationary points.",
+              "Integrate polynomials and use area interpretation."
+            ],
+            "examples": [
+              "Differentiate y = (3x^2+1)(x-4)",
+              "Find area under y = x^2 between 0 and 2"
+            ]
+          },
+          {
+            "id": "pm1-series",
+            "title": "Series & Binomial Expansions",
+            "summary": "Binomial theorem for positive integers, sigma notation basics.",
+            "objectives": [
+              "Expand (a + bx)^n up to required powers.",
+              "Use sigma notation to express polynomial sums."
+            ],
+            "examples": [
+              "Find coefficient of x^3 in (1 - 2x)^5"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "pure-math-2",
+        "name": "Pure Mathematics 2",
+        "summary": "Trigonometry, advanced calculus.",
+        "topics": [
+          {
+            "id": "pm2-trig",
+            "title": "Advanced Trigonometry",
+            "summary": "Trigonometric identities, compound angle formulae, R-form.",
+            "objectives": [
+              "Manipulate trig identities and prove results.",
+              "Solve trig equations in specified intervals.",
+              "Use R cos(x ± α) or R sin(x ± α)."
+            ],
+            "examples": [
+              "Express 3sinx + 4cosx in the form R sin(x+α)."
+            ]
+          },
+          {
+            "id": "pm2-calculus",
+            "title": "Further Differentiation & Integration",
+            "summary": "Implicit differentiation, integration using substitution/parts.",
+            "objectives": [
+              "Differentiate ln, e^x, and implicit relationships.",
+              "Integrate via substitution and integration by parts.",
+              "Solve differential equations of the form dy/dx = f(x)."
+            ],
+            "examples": [
+              "Solve dy/dx = 3e^{2x}, y(0)=1"
+            ]
+          },
+          {
+            "id": "pm2-complex",
+            "title": "Complex Numbers (Optional)",
+            "summary": "Introduce Argand diagram, modulus-argument form, De Moivre's theorem.",
+            "objectives": [
+              "Plot complex numbers and find modulus/argument.",
+              "Use De Moivre's theorem to find powers/roots."
+            ],
+            "examples": [
+              "Solve z^3 = 8(cos 45° + i sin 45°)"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "pure-math-3",
+        "name": "Pure Mathematics 3",
+        "summary": "Series, polar coordinates, further calculus.",
+        "topics": [
+          {
+            "id": "pm3-series",
+            "title": "Series & Sequences",
+            "summary": "Maclaurin/Taylor series, convergence tests.",
+            "objectives": [
+              "Use Maclaurin expansions to approximate functions.",
+              "Determine convergence of geometric or binomial series."
+            ],
+            "examples": [
+              "Find first three non-zero terms of ln(1+x)."
+            ]
+          },
+          {
+            "id": "pm3-polar",
+            "title": "Polar Coordinates",
+            "summary": "Convert between Cartesian and polar, sketch polar curves.",
+            "objectives": [
+              "Interpret graphs given in polar form.",
+              "Find area enclosed by polar curves."
+            ],
+            "examples": [
+              "Compute area for r = 2cosθ between θ = -π/2 and π/2."
+            ]
+          },
+          {
+            "id": "pm3-differential",
+            "title": "Further Differential Equations",
+            "summary": "Second-order linear differential equations, complementary & particular solutions.",
+            "objectives": [
+              "Solve homogeneous 2nd-order differential equations.",
+              "Find general solution with particular integral."
+            ],
+            "examples": [
+              "Solve d^2y/dx^2 - 3dy/dx + 2y = e^{2x}"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "mechanics",
+        "name": "Mechanics",
+        "summary": "Forces, kinematics, energy.",
+        "topics": [
+          {
+            "id": "mech-kinematics",
+            "title": "Kinematics",
+            "summary": "Motion in a straight line using calculus.",
+            "objectives": [
+              "Use s-v-a relationships and calculus.",
+              "Interpret displacement-time and velocity-time graphs."
+            ],
+            "examples": [
+              "Given v = 3t^2 - 4t, find displacement between t=0 and t=2."
+            ]
+          },
+          {
+            "id": "mech-forces",
+            "title": "Forces & Newton's Laws",
+            "summary": "Resolve forces, work with friction, solve connected particle problems.",
+            "objectives": [
+              "Model forces on particles on horizontal/inclined planes.",
+              "Apply F = ma to systems with tension/friction."
+            ],
+            "examples": [
+              "Two particles joined by light string over smooth pulley..."
+            ]
+          },
+          {
+            "id": "mech-work-energy",
+            "title": "Work, Energy, and Power",
+            "summary": "Energy conservation, work done by constant/variable forces, power equations.",
+            "objectives": [
+              "Apply work-energy principle to motion problems.",
+              "Compute power for moving particles."
+            ],
+            "examples": [
+              "Find velocity after moving 4m under constant force with friction."
+            ]
+          }
+        ]
+      },
+      {
+        "id": "probability-statistics",
+        "name": "Probability & Statistics",
+        "summary": "Discrete/continuous distributions, hypothesis testing.",
+        "topics": [
+          {
+            "id": "stats-distributions",
+            "title": "Distributions",
+            "summary": "Binomial and normal distribution modelling.",
+            "objectives": [
+              "Calculate probabilities using binomial and normal approximations.",
+              "Standardize normal variables with mean μ, variance σ^2."
+            ],
+            "examples": [
+              "If X ~ N(70, 9), find P(65 < X < 75)."
+            ]
+          },
+          {
+            "id": "stats-hypothesis",
+            "title": "Hypothesis Testing",
+            "summary": "One-tailed and two-tailed tests using binomial/normal models.",
+            "objectives": [
+              "Formulate null/alternative hypotheses.",
+              "Use critical regions or p-values to conclude tests."
+            ],
+            "examples": [
+              "Test whether a die is biased using binomial test."
+            ]
+          },
+          {
+            "id": "stats-regression",
+            "title": "Correlation & Regression",
+            "summary": "Pearson/Spearman correlation, linear regression lines.",
+            "objectives": [
+              "Calculate correlation coefficients from data.",
+              "Use regression lines for interpolation."
+            ],
+            "examples": [
+              "Determine regression line of y on x and estimate y for given x."
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "igcse_additional_math_0606": {
+    "exam_type": "IGCSE Additional",
+    "subject": "Mathematics (0606)",
+    "version": "2024",
+    "description": "Cambridge IGCSE Additional Mathematics (0606) covering algebra, functions, calculus, and vectors.",
+    "domains": [
+      {
+        "id": "algebra-advanced",
+        "name": "Advanced Algebra",
+        "summary": "Indices, surds, logarithms, and inequalities beyond core syllabus.",
+        "topics": [
+          {
+            "id": "indices-surds",
+            "title": "Indices & Surds",
+            "summary": "Manipulate fractional indices, rationalize surds, solve equations.",
+            "objectives": [
+              "Apply index laws for positive/negative/fractional indices.",
+              "Simplify and rationalize surd expressions."
+            ],
+            "examples": [
+              "Simplify (√5 + 2)(√5 - 2)",
+              "Solve 9^{x+1} = 27^{x-2}"
+            ]
+          },
+          {
+            "id": "logarithms",
+            "title": "Logarithms",
+            "summary": "Laws of logarithms, change of base, solving exponential equations.",
+            "objectives": [
+              "Use log laws to expand or combine expressions.",
+              "Solve equations involving e^x and ln x."
+            ],
+            "examples": [
+              "Solve e^{2x} = 5",
+              "Convert log_2 7 to natural logs"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "functions-graphs",
+        "name": "Functions & Graphs",
+        "summary": "Quadratic inequalities, rational functions, transformation of graphs.",
+        "topics": [
+          {
+            "id": "quadratic-inequalities",
+            "title": "Quadratic & Rational Inequalities",
+            "summary": "Solve inequalities using graph and algebraic factorization.",
+            "objectives": [
+              "Represent solution sets on number lines.",
+              "Interpret inequalities using sign diagrams."
+            ],
+            "examples": [
+              "Solve (x-3)(x+1)/(x-2) > 0"
+            ]
+          },
+          {
+            "id": "graph-transform",
+            "title": "Graph Transformation & Composite Functions",
+            "summary": "Apply translations, reflections, stretches on graphs; composite/inverse functions.",
+            "objectives": [
+              "Write transformed functions in terms of originals.",
+              "Determine domain/range of composite functions."
+            ],
+            "examples": [
+              "Describe transformation from y=f(x) to y=f(2x)+3"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "calculus",
+        "name": "Differentiation & Integration",
+        "summary": "Introductory calculus beyond IGCSE core syllabus.",
+        "topics": [
+          {
+            "id": "differentiation",
+            "title": "Differentiation",
+            "summary": "Differentiate polynomials, exponentials, products and quotients.",
+            "objectives": [
+              "Find tangents/normals to curves.",
+              "Apply differentiation to optimization problems."
+            ],
+            "examples": [
+              "Differentiate y = (3x^2 - 4)/(x+1)",
+              "Find stationary points of y = x e^{-x}"
+            ]
+          },
+          {
+            "id": "integration",
+            "title": "Integration",
+            "summary": "Antiderivatives of polynomials and simple exponentials.",
+            "objectives": [
+              "Evaluate definite integrals for area under curve.",
+              "Use integration to solve kinematics problems."
+            ],
+            "examples": [
+              "∫ (2x^3 - 5x) dx",
+              "Find displacement from velocity function"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "trigonometry",
+        "name": "Trigonometry & Vectors",
+        "summary": "Trigonometric identities, equations, and vector algebra.",
+        "topics": [
+          {
+            "id": "trig-identities",
+            "title": "Trigonometric Identities & Equations",
+            "summary": "Use double-angle, sum-to-product identities, solve trig equations.",
+            "objectives": [
+              "Prove identities using algebraic manipulation.",
+              "Solve equations within specified intervals."
+            ],
+            "examples": [
+              "Solve 2sin x cos x = cos x for 0° ≤ x ≤ 360°"
+            ]
+          },
+          {
+            "id": "vectors",
+            "title": "Vectors",
+            "summary": "Vector addition, scalar product, magnitude/direction problems.",
+            "objectives": [
+              "Resolve vectors into components.",
+              "Use dot product to find angle between vectors."
+            ],
+            "examples": [
+              "Given AB = (3, -1), AC = (-2,4), find cos θ between vectors"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

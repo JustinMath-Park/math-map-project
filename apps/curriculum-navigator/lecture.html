@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mathiter Lecture Flow</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="lecture.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
+  </head>
+  <body>
+    <div class="lecture-page">
+      <header class="lecture-header">
+        <div>
+          <p class="eyebrow">Lecture Flow</p>
+          <h1 id="lectureTitle">강의 제목</h1>
+        </div>
+        <button type="button" class="ghost-btn" id="backBtn">← 커리큘럼으로 돌아가기</button>
+      </header>
+
+      <section class="lecture-content">
+        <div class="video-panel">
+          <iframe
+            id="lectureVideo"
+            src=""
+            title="Lecture video"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+
+        <div class="outline-panel">
+          <h2>학습 목표</h2>
+          <ul id="objectiveList"></ul>
+
+          <h3>강의 플로우</h3>
+          <div id="outlineList" class="outline-grid"></div>
+
+          <h3>필기 & 개념 정리</h3>
+          <div id="noteList" class="note-box"></div>
+        </div>
+      </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="js/modules/katex-helper.js"></script>
+    <script src="js/config.js"></script>
+    <script type="module" src="lecture.js"></script>
+  </body>
+</html>

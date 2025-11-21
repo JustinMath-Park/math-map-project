@@ -1,48 +1,38 @@
-from google import genai
-from google.api_core import retry
-from google.api_core import exceptions
+from google.cloud import aiplatform
+from vertexai.generative_models import GenerativeModel
+import vertexai
 from config import Config
 from utils.logger import setup_logger
 import time
 
 logger = setup_logger(__name__)
 
-# 재시도 설정
-RETRY_CONFIG = retry.Retry(
-    initial=1.0,  # 첫 재시도 대기 시간 (초)
-    maximum=10.0,  # 최대 대기 시간 (초)
-    multiplier=2.0,  # 대기 시간 증가 배수
-    deadline=60.0,  # 전체 타임아웃 (초)
-    predicate=retry.if_exception_type(
-        exceptions.DeadlineExceeded,
-        exceptions.ServiceUnavailable,
-        exceptions.InternalServerError,
-    ),
-)
-
 def initialize_ai_client():
-    """Google Gen AI 클라이언트 초기화 및 반환"""
+    """Vertex AI 클라이언트 초기화 및 반환"""
     try:
-        client = genai.Client(
-            vertexai=True,
+        # Vertex AI 초기화
+        vertexai.init(
             project=Config.PROJECT_ID,
             location=Config.AI_LOCATION
         )
-        logger.info("AI 클라이언트 초기화 성공")
-        return client
+
+        # 모델 초기화
+        model = GenerativeModel(Config.MODEL_FLASH)
+
+        logger.info(f"AI 클라이언트 초기화 성공 (모델: {Config.MODEL_FLASH})")
+        return model
 
     except Exception as e:
         logger.error(f"AI 클라이언트 초기화 실패: {e}", exc_info=True)
         return None
 
-def call_ai_with_retry(client, model, contents, max_retries=3):
+def call_ai_with_retry(model, contents, max_retries=3):
     """
     AI API 호출 with 재시도 로직
 
     Args:
-        client: Gen AI 클라이언트
-        model: 모델 이름
-        contents: 프롬프트 내용
+        model: Vertex AI 모델
+        contents: 프롬프트 내용 (str 또는 list)
         max_retries: 최대 재시도 횟수
 
     Returns:
@@ -54,10 +44,7 @@ def call_ai_with_retry(client, model, contents, max_retries=3):
         try:
             logger.info(f"AI API 호출 시도 {attempt}/{max_retries}")
 
-            response = client.models.generate_content(
-                model=model,
-                contents=contents
-            )
+            response = model.generate_content(contents)
 
             if response and hasattr(response, 'text') and response.text:
                 logger.info(f"AI API 호출 성공 (시도 {attempt}/{max_retries})")
@@ -66,24 +53,14 @@ def call_ai_with_retry(client, model, contents, max_retries=3):
                 logger.warning(f"AI 응답이 비어있음 (시도 {attempt}/{max_retries})")
                 last_error = Exception("Empty AI response")
 
-        except exceptions.DeadlineExceeded as e:
-            logger.warning(f"AI API 타임아웃 (시도 {attempt}/{max_retries}): {e}")
-            last_error = e
-
-        except exceptions.ServiceUnavailable as e:
-            logger.warning(f"AI 서비스 일시 중단 (시도 {attempt}/{max_retries}): {e}")
-            last_error = e
-
-        except exceptions.InternalServerError as e:
-            logger.warning(f"AI 서버 내부 오류 (시도 {attempt}/{max_retries}): {e}")
-            last_error = e
-
         except Exception as e:
             logger.error(f"AI API 호출 실패 (시도 {attempt}/{max_retries}): {e}", exc_info=True)
+
             # 클라이언트 에러는 재시도하지 않음
             if "400" in str(e) or "invalid" in str(e).lower():
                 logger.error("클라이언트 에러 - 재시도 중단")
                 return None
+
             last_error = e
 
         # 마지막 시도가 아니면 재시도 전 대기

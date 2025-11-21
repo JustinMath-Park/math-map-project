@@ -1,0 +1,77 @@
+[
+  {
+    "lecture_id": "sat_math_2024-algebra-linear-equations",
+    "curriculum_id": "sat_math_2024",
+    "domain_id": "algebra",
+    "topic_id": "linear-equations",
+    "title": "SAT Algebra: Linear Equations Deep Dive",
+    "video_url": "https://www.youtube.com/embed/W7YbLm9t1kA",
+    "objectives": [
+      "Translate verbal statements into linear equations",
+      "Isolate variables efficiently using inverse operations",
+      "Check solutions and interpret them in context"
+    ],
+    "outline": [
+      {
+        "label": "Warm-up",
+        "description": "Review of balance model using $$2x + 7 = 19$$ examples"
+      },
+      {
+        "label": "Strategy",
+        "description": "Demonstrate systematic isolation of \\(x\\) with multi-step problems"
+      },
+      {
+        "label": "Practice",
+        "description": "Guided walkthrough of SAT-style questions with fractions"
+      }
+    ],
+    "notes": [
+      "항상 좌변과 우변에 동일한 연산을 적용하여 방정식의 균형을 유지합니다.",
+      "비율 문제가 나오면 먼저 단위를 통일하고 식을 세우세요."
+    ]
+  },
+  {
+    "lecture_id": "igcse_additional_math_0606-calculus-differentiation",
+    "curriculum_id": "igcse_additional_math_0606",
+    "domain_id": "calculus",
+    "topic_id": "differentiation",
+    "title": "IGCSE Additional: Differentiation Basics",
+    "video_url": "https://www.youtube.com/embed/0l5-3G9efQw",
+    "objectives": [
+      "Differentiate polynomials and rational functions",
+      "Find tangent lines and normals",
+      "Apply derivatives to optimization problems"
+    ],
+    "outline": [
+      {"label": "Concept", "description": "Limit definition와 파워 룰 비교"},
+      {"label": "Examples", "description": "$$y = \\\\frac{3x^2-4}{x+1}$$ 의 도함수 구하기"},
+      {"label": "Application", "description": "y = xe^{-x}의 극값 찾기"}
+    ],
+    "notes": [
+      "도함수 기호: $$\\\\frac{dy}{dx}$$ 은 x에 대한 순간 변화율을 의미합니다.",
+      "최대/최소를 찾을 때는 도함수를 0으로 놓고 부호 변화를 확인합니다."
+    ]
+  },
+  {
+    "lecture_id": "alevel_mathematics-mechanics-mech-kinematics",
+    "curriculum_id": "alevel_mathematics",
+    "domain_id": "mechanics",
+    "topic_id": "mech-kinematics",
+    "title": "A-Level Mechanics: Kinematics in One Dimension",
+    "video_url": "https://www.youtube.com/embed/B4e7CShmJz8",
+    "objectives": [
+      "Interpret displacement, velocity, acceleration graphs",
+      "Use calculus to move between s, v, a",
+      "Solve exam-style projectile questions"
+    ],
+    "outline": [
+      {"label": "Graphs", "description": "v-t 그래프의 기울기 = 가속도, 면적 = 변위"},
+      {"label": "Calculus Link", "description": "$$v = \\\\frac{ds}{dt}, a = \\\\frac{dv}{dt}$$ 관계 복습"},
+      {"label": "Exam Practice", "description": "파티클이 정지하는 순간과 이동 거리 계산"}
+    ],
+    "notes": [
+      "속도-시간 그래프에서 선 아래 면적은 총 변위입니다.",
+      "가속도가 음수라도 속도와 같은 방향이면 속도가 감소합니다."
+    ]
+  }
+]

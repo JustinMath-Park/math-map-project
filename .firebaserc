@@ -1,0 +1,20 @@
+{
+  "projects": {
+    "default": "my-mvp-backend"
+  },
+  "targets": {
+    "my-mvp-backend": {
+      "hosting": {
+        "mvp-test": [
+          "mathiter-mvp-test"
+        ],
+        "level-test": [
+          "mathiter-level-test"
+        ],
+        "curriculum-navigator": [
+          "mathiter-curriculum"
+        ]
+      }
+    }
+  }
+}

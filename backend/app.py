@@ -1,3 +1,4 @@
+import os
 import sys
 from flask import Flask, jsonify
 from flask_cors import CORS
@@ -21,20 +22,9 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
     
-    # CORS 설정
-    allowed_origins = [Config.FRONTEND_URL, Config.WIX_SITE_URL]
-
-    CORS(app, resources={
-        r"/get_test_problems": {"origins": allowed_origins},
-        r"/submit_and_analyze": {"origins": allowed_origins},
-        r"/register_guest": {"origins": allowed_origins},
-        r"/guest/*": {"origins": allowed_origins},
-        r"/wix_webhook": {"origins": "*"},  # Wix webhook은 모든 origin 허용
-        r"/wix_velo_sync": {"origins": "*"},  # Wix Velo Backend는 모든 origin 허용
-        r"/wix_login": {"origins": allowed_origins},
-        r"/user/*": {"origins": allowed_origins}
-    })
-    logger.info(f"CORS 설정 완료 - Origins: {allowed_origins}")
+    # CORS 설정 - 모든 origin 허용
+    CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=False)
+    logger.info("CORS 설정 완료 - 모든 origin 허용")
     
     # Firebase 초기화
     db = initialize_firebase()

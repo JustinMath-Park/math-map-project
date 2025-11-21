@@ -49,13 +49,10 @@ class AIService:
             logger.info(f"AI 해설 생성 요청 - 문제 ID: {problem_id}")
 
             # 재시도 로직 포함 AI 호출
+            full_prompt = f"{Config.SOLUTION_SYSTEM_PROMPT}\n\n{user_prompt}"
             response = call_ai_with_retry(
-                client=self.ai_client,
-                model=Config.MODEL_FLASH,
-                contents=[
-                    Config.SOLUTION_SYSTEM_PROMPT,
-                    user_prompt
-                ],
+                model=self.ai_client,
+                contents=full_prompt,
                 max_retries=3
             )
             
@@ -155,13 +152,10 @@ class AIService:
             )
 
             # 재시도 로직 포함 AI 호출
+            full_prompt = f"{Config.ANALYSIS_SYSTEM_PROMPT}\n\n{user_prompt}"
             response = call_ai_with_retry(
-                client=self.ai_client,
-                model=Config.MODEL_FLASH,
-                contents=[
-                    Config.ANALYSIS_SYSTEM_PROMPT,
-                    user_prompt
-                ],
+                model=self.ai_client,
+                contents=full_prompt,
                 max_retries=3
             )
 

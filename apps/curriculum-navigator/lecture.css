@@ -1,0 +1,78 @@
+.lecture-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+.lecture-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.lecture-content {
+  background: #fff;
+  border-radius: 28px;
+  padding: 32px;
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+  display: grid;
+  gap: 32px;
+}
+
+.video-panel iframe {
+  width: 100%;
+  min-height: 320px;
+  border-radius: 20px;
+}
+
+.outline-panel h2,
+.outline-panel h3 {
+  margin-top: 0;
+}
+
+#objectiveList {
+  list-style: disc;
+  padding-left: 20px;
+  margin-bottom: 24px;
+}
+
+.outline-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.outline-card {
+  background: #f4f6ff;
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid rgba(79, 70, 229, 0.12);
+}
+
+.outline-card span {
+  display: inline-block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #4f46e5;
+}
+
+.note-box p {
+  background: #0d1b3f;
+  color: white;
+  padding: 14px 18px;
+  border-radius: 16px;
+  margin: 0 0 12px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.note-box p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 700px) {
+  .lecture-content {
+    padding: 20px;
+  }
+}
