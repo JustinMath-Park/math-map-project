@@ -1,0 +1,18 @@
+/* KaTeX 폰트가 정상 로드되도록 기본 폰트 설정 */
+body { font-family: 'Inter', sans-serif; }
+.katex { font-size: 1.25rem; } /* 수학식 폰트 크기 조정 */
+
+/* 타이머 스타일 */
+.timer-normal { color: #10b981; }
+.timer-warning { color: #f59e0b; }
+.timer-danger { color: #ef4444; animation: pulse 1s infinite; }
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* 모달 배경 */
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}

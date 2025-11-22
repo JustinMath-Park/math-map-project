@@ -30,6 +30,12 @@
 - 체계적인 문서화 완료
 - 집에서 작업 이어갈 수 있는 가이드 작성
 
+### 5. 기술적 개선 (2025-11-22) 🛠️
+- **Frontend**: `mvp-test` 앱의 구조 개선 (HTML/CSS/JS 분리)
+- **Backend**: 테스트 환경 구축 (`pytest`) 및 기본 단위 테스트 작성
+- **CI/CD**: GitHub Actions 배포 파이프라인 구축 (`.github/workflows/deploy.yml`)
+- **Quality**: 코드 품질 도구 설정 (`flake8`, `black`)
+
 ---
 
 ## 🗂️ 생성된 문서들
