@@ -41,9 +41,11 @@
 ## 🗂️ 생성된 문서들
 
 ### 핵심 문서
+### 핵심 문서
 1. **[HOME_SETUP_GUIDE.md](HOME_SETUP_GUIDE.md)**: 집에서 개발 환경 설정 전체 가이드 (상세)
-2. **[QUICK_START_HOME.md](QUICK_START_HOME.md)**: 5분 안에 시작하는 빠른 가이드 (간단)
-3. **[CORS_ISSUE_RESOLVED.md](CORS_ISSUE_RESOLVED.md)**: CORS 문제 해결 과정 상세 기록
+2. **[CROSS_ENV_WORKFLOW.md](CROSS_ENV_WORKFLOW.md)**: 🏠↔️🏢 집과 회사를 오가는 작업 가이드 ✨
+3. **[QUICK_START_HOME.md](QUICK_START_HOME.md)**: 5분 안에 시작하는 빠른 가이드 (간단)
+4. **[CORS_ISSUE_RESOLVED.md](CORS_ISSUE_RESOLVED.md)**: CORS 문제 해결 과정 상세 기록
 4. **[DEPLOYMENT_SUMMARY.md](DEPLOYMENT_SUMMARY.md)**: Firebase Hosting 배포 정보
 
 ### 기타 문서
