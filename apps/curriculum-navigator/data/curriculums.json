@@ -18,7 +18,10 @@
               "Solve multi-step equations and inequalities.",
               "Translate word problems into linear models."
             ],
-            "examples": ["3x - 7 = 11", "2(x - 5) = 3x + 4"]
+            "examples": [
+              "$3x - 7 = 11$",
+              "$2(x - 5) = 3x + 4$"
+            ]
           },
           {
             "id": "systems",
@@ -28,7 +31,9 @@
               "Solve systems by substitution or elimination.",
               "Interpret points of intersection in context."
             ],
-            "examples": ["x + y = 12, 2x - y = 3"]
+            "examples": [
+              "$x + y = 12, 2x - y = 3$"
+            ]
           },
           {
             "id": "linear-functions",
@@ -36,9 +41,12 @@
             "summary": "Slope, intercepts, transformations of lines.",
             "objectives": [
               "Determine slope from tables or graphs.",
-              "Model scenarios using y = mx + b."
+              "Model scenarios using $y = mx + b$."
             ],
-            "examples": ["Find slope from two points", "Compare growth rates"]
+            "examples": [
+              "Find slope from two points",
+              "Compare growth rates"
+            ]
           }
         ]
       },
@@ -56,7 +64,10 @@
               "Solve quadratic equations (factoring, completing square, formula).",
               "Analyze vertex and axis of symmetry."
             ],
-            "examples": ["x^2 - 5x + 6 = 0", "y = (x-2)^2 + 3"]
+            "examples": [
+              "$x^2 - 5x + 6 = 0$",
+              "$y = (x-2)^2 + 3$"
+            ]
           },
           {
             "id": "function-analysis",
@@ -67,7 +78,10 @@
               "Determine if inverse is a function.",
               "Describe transformations."
             ],
-            "examples": ["f(g(2)) given tables", "Graph reflections"]
+            "examples": [
+              "$f(g(2))$ given tables",
+              "Graph reflections"
+            ]
           },
           {
             "id": "exponentials",
@@ -77,7 +91,10 @@
               "Interpret exponential growth parameters.",
               "Solve exponential equations with logarithms."
             ],
-            "examples": ["A = 500(1.06)^t", "log base operations"]
+            "examples": [
+              "$A = 500(1.06)^t$",
+              "log base operations"
+            ]
           }
         ]
       },
@@ -90,8 +107,14 @@
             "id": "ratios",
             "title": "Ratios and Proportions",
             "summary": "Scale models, percent increase/decrease, unit rate comparisons.",
-            "objectives": ["Model proportional relationships.", "Solve multi-step percent problems."],
-            "examples": ["If 3 kg cost $18, what is the cost of 7 kg?", "Percent change scenario"]
+            "objectives": [
+              "Model proportional relationships.",
+              "Solve multi-step percent problems."
+            ],
+            "examples": [
+              "If 3 kg cost $18, what is the cost of 7 kg?",
+              "Percent change scenario"
+            ]
           },
           {
             "id": "percents",
@@ -101,7 +124,9 @@
               "Convert between percent and decimal multipliers.",
               "Chain multiple percent changes."
             ],
-            "examples": ["Item increased by 8% then discounted 15% — net change?"]
+            "examples": [
+              "Item increased by 8% then discounted 15% — net change?"
+            ]
           },
           {
             "id": "statistics",
@@ -112,7 +137,10 @@
               "Interpret scatterplots and two-way tables.",
               "Use probability rules from context."
             ],
-            "examples": ["Interpret slope of best-fit line", "Conditional probability table"]
+            "examples": [
+              "Interpret slope of best-fit line",
+              "Conditional probability table"
+            ]
           }
         ]
       },
@@ -125,8 +153,14 @@
             "id": "circle-theorems",
             "title": "Circle Relationships",
             "summary": "Arc/angle properties, equation of a circle, chords, tangents.",
-            "objectives": ["Apply arc/angle relationships.", "Use equation of a circle in coordinate plane."],
-            "examples": ["(x-3)^2 + (y+2)^2 = 16", "Find arc length"]
+            "objectives": [
+              "Apply arc/angle relationships.",
+              "Use equation of a circle in coordinate plane."
+            ],
+            "examples": [
+              "$(x-3)^2 + (y+2)^2 = 16$",
+              "Find arc length"
+            ]
           },
           {
             "id": "coordinate-geometry",
@@ -136,14 +170,23 @@
               "Classify triangles/quadrilaterals using coordinate proofs.",
               "Calculate slope relationships and segment ratios."
             ],
-            "examples": ["Show diagonals of a rectangle are congruent", "Find point dividing segment in ratio"]
+            "examples": [
+              "Show diagonals of a rectangle are congruent",
+              "Find point dividing segment in ratio"
+            ]
           },
           {
             "id": "trigonometry",
             "title": "Right Triangle Trigonometry",
             "summary": "Basic sine/cosine/tangent, modeling with trig ratios.",
-            "objectives": ["Solve for missing sides using sine, cosine, tangent.", "Interpret trig ratios in modeling questions."],
-            "examples": ["sin(θ) = 5/13", "Height of a flagpole problem"]
+            "objectives": [
+              "Solve for missing sides using sine, cosine, tangent.",
+              "Interpret trig ratios in modeling questions."
+            ],
+            "examples": [
+              "$\\sin(\\theta) = 5/13$",
+              "Height of a flagpole problem"
+            ]
           }
         ]
       }
@@ -169,7 +212,10 @@
               "Use one-sided limits and identify asymptotes.",
               "Apply limit laws and squeeze theorem."
             ],
-            "examples": ["lim_{x->0} (sin x)/x", "Check continuity at x=2 for piecewise function"]
+            "examples": [
+              "$\\lim_{x\\to 0} \\frac{\\sin x}{x}$",
+              "Check continuity at $x=2$ for piecewise function"
+            ]
           },
           {
             "id": "continuity",
@@ -180,7 +226,9 @@
               "Use Intermediate Value Theorem to justify solutions.",
               "Apply Extreme Value Theorem to closed intervals."
             ],
-            "examples": ["Show root exists between x=1 and x=2 for f(x)=x^3-5"]
+            "examples": [
+              "Show root exists between $x=1$ and $x=2$ for $f(x)=x^3-5$"
+            ]
           }
         ]
       },
@@ -197,7 +245,10 @@
               "Differentiate compositions using the chain rule.",
               "Apply implicit differentiation to related functions."
             ],
-            "examples": ["Differentiate y = (3x^2 + 1)^5", "Implicitly differentiate x^2 + y^2 = 9"]
+            "examples": [
+              "Differentiate $y = (3x^2 + 1)^5$",
+              "Implicitly differentiate $x^2 + y^2 = 9$"
+            ]
           },
           {
             "id": "related-rates",
@@ -207,7 +258,10 @@
               "Translate verbal rates to derivative equations.",
               "Solve problems involving geometry or motion."
             ],
-            "examples": ["Water leaking from conical tank", "Ladder sliding problem"]
+            "examples": [
+              "Water leaking from conical tank",
+              "Ladder sliding problem"
+            ]
           }
         ]
       },
@@ -224,7 +278,10 @@
               "Use first/second derivative tests to classify extrema.",
               "Solve optimization word problems."
             ],
-            "examples": ["Maximize area of fenced region", "Sketch f(x) = x^3 - 3x"]
+            "examples": [
+              "Maximize area of fenced region",
+              "Sketch $f(x) = x^3 - 3x$"
+            ]
           },
           {
             "id": "motion",
@@ -234,7 +291,9 @@
               "Analyze motion from position/velocity graphs.",
               "Determine total distance travelled and direction changes."
             ],
-            "examples": ["Given s(t), find when particle speeds up or slows down"]
+            "examples": [
+              "Given s(t), find when particle speeds up or slows down"
+            ]
           }
         ]
       },
@@ -251,7 +310,10 @@
               "Evaluate definite integrals using substitution.",
               "Apply integration by parts and partial fractions (BC)."
             ],
-            "examples": ["∫ x e^{x^2} dx", "∫ x cos x dx"]
+            "examples": [
+              "$\\int x e^{x^2} dx$",
+              "$\\int x \\cos x dx$"
+            ]
           },
           {
             "id": "ftc",
@@ -261,7 +323,9 @@
               "Use FTC to evaluate definite integrals.",
               "Differentiate accumulation functions."
             ],
-            "examples": ["d/dx ∫_1^x t^2 dt"]
+            "examples": [
+              "$\\frac{d}{dx} \\int_1^x t^2 dt$"
+            ]
           }
         ]
       },
@@ -278,7 +342,9 @@
               "Compute area between intersecting curves.",
               "Find volume using disk/washer/shell methods."
             ],
-            "examples": ["Volume generated by rotating region around x-axis"]
+            "examples": [
+              "Volume generated by rotating region around x-axis"
+            ]
           },
           {
             "id": "differential-equations",
@@ -288,7 +354,9 @@
               "Sketch slope fields and solution curves.",
               "Solve separable differential equations."
             ],
-            "examples": ["dy/dx = y(1 - y/5), y(0) = 1"]
+            "examples": [
+              "$\\frac{dy}{dx} = y(1 - y/5), y(0) = 1$"
+            ]
           }
         ]
       },
@@ -305,7 +373,9 @@
               "Determine convergence of positive term series.",
               "Apply alternating series and ratio tests."
             ],
-            "examples": ["Test ∑ (n! / n^n) for convergence"]
+            "examples": [
+              "Test $\\sum (n! / n^n)$ for convergence"
+            ]
           },
           {
             "id": "power-series",
@@ -315,7 +385,9 @@
               "Find Taylor series for common functions.",
               "Use series to approximate function values."
             ],
-            "examples": ["Maclaurin series for e^x up to x^4"]
+            "examples": [
+              "Maclaurin series for $e^x$ up to $x^4$"
+            ]
           }
         ]
       }
@@ -340,7 +412,10 @@
               "Convert between fractions, decimals, percentages.",
               "Solve reverse percentage problems."
             ],
-            "examples": ["Find original price after 12% increase", "Express 0.27 recurring as a fraction"]
+            "examples": [
+              "Find original price after 12% increase",
+              "Express 0.27 recurring as a fraction"
+            ]
           },
           {
             "id": "ratio-rate",
@@ -350,7 +425,10 @@
               "Model situations with direct or inverse proportions.",
               "Manipulate compound measures (speed, density, pressure)."
             ],
-            "examples": ["Water tank filling with varying rate", "Convert mph to m/s"]
+            "examples": [
+              "Water tank filling with varying rate",
+              "Convert mph to m/s"
+            ]
           },
           {
             "id": "standard-form",
@@ -360,7 +438,9 @@
               "Convert large/small numbers to scientific notation.",
               "Calculate with standard form."
             ],
-            "examples": ["(3.2 × 10^5) + (7.4 × 10^4)"]
+            "examples": [
+              "$(3.2 \\times 10^5) + (7.4 \\times 10^4)$"
+            ]
           }
         ]
       },
@@ -373,8 +453,13 @@
             "id": "expansion",
             "title": "Expansion & Factorisation",
             "summary": "Binomial expansion, factorising quadratics.",
-            "objectives": ["Expand (ax + b)(cx + d).", "Factorise ax^2 + bx + c."],
-            "examples": ["Factorise 2x^2 + 7x + 3"]
+            "objectives": [
+              "Expand $(ax + b)(cx + d)$.",
+              "Factorise $ax^2 + bx + c$."
+            ],
+            "examples": [
+              "Factorise $2x^2 + 7x + 3$"
+            ]
           },
           {
             "id": "simultaneous",
@@ -384,7 +469,9 @@
               "Solve simultaneous equations algebraically.",
               "Interpret graphical solutions."
             ],
-            "examples": ["Solve y = 2x + 1, xy = 12"]
+            "examples": [
+              "Solve $y = 2x + 1, xy = 12$"
+            ]
           },
           {
             "id": "inequalities",
@@ -394,14 +481,22 @@
               "Solve linear/quadratic inequalities.",
               "Shade solution sets on number lines or coordinate planes."
             ],
-            "examples": ["Represent -2 < x ≤ 4", "Find feasible region for system"]
+            "examples": [
+              "Represent $-2 < x \\le 4$",
+              "Find feasible region for system"
+            ]
           },
           {
             "id": "sequences",
             "title": "Sequences",
             "summary": "Arithmetic/geometric sequences, nth term.",
-            "objectives": ["Find nth term formula.", "Identify sequence type from patterns."],
-            "examples": ["Find nth term of 5, 8, 11, ..."]
+            "objectives": [
+              "Find nth term formula.",
+              "Identify sequence type from patterns."
+            ],
+            "examples": [
+              "Find nth term of 5, 8, 11, ..."
+            ]
           }
         ]
       },
@@ -418,14 +513,21 @@
               "Describe a transformation using matrix/vector notation.",
               "Apply successive transformations."
             ],
-            "examples": ["Describe transformation from shape A to B"]
+            "examples": [
+              "Describe transformation from shape A to B"
+            ]
           },
           {
             "id": "vectors",
             "title": "Vectors",
             "summary": "Vector addition, scalar multiplication, proof with vectors.",
-            "objectives": ["Add vectors using column notation.", "Use vectors to prove geometric results."],
-            "examples": ["Given AB = (2,3), AC = (-1,4), find BC"]
+            "objectives": [
+              "Add vectors using column notation.",
+              "Use vectors to prove geometric results."
+            ],
+            "examples": [
+              "Given $AB = (2,3), AC = (-1,4)$, find $BC$"
+            ]
           },
           {
             "id": "circles",
@@ -435,7 +537,10 @@
               "Apply circle theorems to prove relationships.",
               "Solve for missing angles/lengths in circle diagrams."
             ],
-            "examples": ["Opposite angles in cyclic quad sum to 180°", "Tangents from a point are equal"]
+            "examples": [
+              "Opposite angles in cyclic quad sum to $180^\\circ$",
+              "Tangents from a point are equal"
+            ]
           }
         ]
       },
@@ -452,7 +557,10 @@
               "Calculate volume/surface area of standard solids.",
               "Solve density/mass/volume problems."
             ],
-            "examples": ["Volume of a frustum", "Mass = density × volume problems"]
+            "examples": [
+              "Volume of a frustum",
+              "Mass = density × volume problems"
+            ]
           }
         ]
       },
@@ -469,7 +577,9 @@
               "Construct and interpret statistical diagrams.",
               "Find median, quartiles from graphs."
             ],
-            "examples": ["Draw cumulative frequency graph for height data"]
+            "examples": [
+              "Draw cumulative frequency graph for height data"
+            ]
           },
           {
             "id": "probability",
@@ -479,7 +589,9 @@
               "Use AND/OR rules for independent events.",
               "Calculate expected number of outcomes."
             ],
-            "examples": ["Probability of drawing two red balls without replacement"]
+            "examples": [
+              "Probability of drawing two red balls without replacement"
+            ]
           },
           {
             "id": "mixed-problems",
@@ -489,7 +601,9 @@
               "Compare data sets using summary statistics.",
               "Apply probability to decision-making scenarios."
             ],
-            "examples": ["Choose best product based on probability and payoff"]
+            "examples": [
+              "Choose best product based on probability and payoff"
+            ]
           }
         ]
       }
@@ -516,8 +630,8 @@
               "Use composite and inverse functions."
             ],
             "examples": [
-              "Solve 3x^2 - 5x - 2 = 0",
-              "Find f^{-1}(x) for f(x) = (2x-3)/(x+4)"
+              "Solve $3x^2 - 5x - 2 = 0$",
+              "Find $f^{-1}(x)$ for $f(x) = (2x-3)/(x+4)$"
             ]
           },
           {
@@ -543,8 +657,8 @@
               "Integrate polynomials and use area interpretation."
             ],
             "examples": [
-              "Differentiate y = (3x^2+1)(x-4)",
-              "Find area under y = x^2 between 0 and 2"
+              "Differentiate $y = (3x^2+1)(x-4)$",
+              "Find area under $y = x^2$ between $0$ and $2$"
             ]
           },
           {
@@ -556,7 +670,7 @@
               "Use sigma notation to express polynomial sums."
             ],
             "examples": [
-              "Find coefficient of x^3 in (1 - 2x)^5"
+              "Find coefficient of $x^3$ in $(1 - 2x)^5$"
             ]
           }
         ]
@@ -573,10 +687,10 @@
             "objectives": [
               "Manipulate trig identities and prove results.",
               "Solve trig equations in specified intervals.",
-              "Use R cos(x ± α) or R sin(x ± α)."
+              "Use $R \\cos(x \\pm \\alpha)$ or $R \\sin(x \\pm \\alpha)$."
             ],
             "examples": [
-              "Express 3sinx + 4cosx in the form R sin(x+α)."
+              "Express $3\\sin x + 4\\cos x$ in the form $R \\sin(x+\\alpha)$."
             ]
           },
           {
@@ -589,7 +703,7 @@
               "Solve differential equations of the form dy/dx = f(x)."
             ],
             "examples": [
-              "Solve dy/dx = 3e^{2x}, y(0)=1"
+              "Solve $\\frac{dy}{dx} = 3e^{2x}, y(0)=1$"
             ]
           },
           {
@@ -601,7 +715,7 @@
               "Use De Moivre's theorem to find powers/roots."
             ],
             "examples": [
-              "Solve z^3 = 8(cos 45° + i sin 45°)"
+              "Solve $z^3 = 8(\\cos 45^\\circ + i \\sin 45^\\circ)$"
             ]
           }
         ]
@@ -620,7 +734,7 @@
               "Determine convergence of geometric or binomial series."
             ],
             "examples": [
-              "Find first three non-zero terms of ln(1+x)."
+              "Find first three non-zero terms of $\\ln(1+x)$."
             ]
           },
           {
@@ -632,7 +746,7 @@
               "Find area enclosed by polar curves."
             ],
             "examples": [
-              "Compute area for r = 2cosθ between θ = -π/2 and π/2."
+              "Compute area for $r = 2\\cos\\theta$ between $\\theta = -\\pi/2$ and $\\pi/2$."
             ]
           },
           {
@@ -644,7 +758,7 @@
               "Find general solution with particular integral."
             ],
             "examples": [
-              "Solve d^2y/dx^2 - 3dy/dx + 2y = e^{2x}"
+              "Solve $\\frac{d^2y}{dx^2} - 3\\frac{dy}{dx} + 2y = e^{2x}$"
             ]
           }
         ]
@@ -663,7 +777,7 @@
               "Interpret displacement-time and velocity-time graphs."
             ],
             "examples": [
-              "Given v = 3t^2 - 4t, find displacement between t=0 and t=2."
+              "Given $v = 3t^2 - 4t$, find displacement between $t=0$ and $t=2$."
             ]
           },
           {
@@ -706,7 +820,7 @@
               "Standardize normal variables with mean μ, variance σ^2."
             ],
             "examples": [
-              "If X ~ N(70, 9), find P(65 < X < 75)."
+              "If $X \\sim N(70, 9)$, find $P(65 < X < 75)$."
             ]
           },
           {
@@ -757,8 +871,8 @@
               "Simplify and rationalize surd expressions."
             ],
             "examples": [
-              "Simplify (√5 + 2)(√5 - 2)",
-              "Solve 9^{x+1} = 27^{x-2}"
+              "Simplify $(\\sqrt{5} + 2)(\\sqrt{5} - 2)$",
+              "Solve $9^{x+1} = 27^{x-2}$"
             ]
           },
           {
@@ -770,8 +884,8 @@
               "Solve equations involving e^x and ln x."
             ],
             "examples": [
-              "Solve e^{2x} = 5",
-              "Convert log_2 7 to natural logs"
+              "Solve $e^{2x} = 5$",
+              "Convert $\\log_2 7$ to natural logs"
             ]
           }
         ]
@@ -790,7 +904,7 @@
               "Interpret inequalities using sign diagrams."
             ],
             "examples": [
-              "Solve (x-3)(x+1)/(x-2) > 0"
+              "Solve $(x-3)(x+1)/(x-2) > 0$"
             ]
           },
           {
@@ -821,7 +935,7 @@
               "Apply differentiation to optimization problems."
             ],
             "examples": [
-              "Differentiate y = (3x^2 - 4)/(x+1)",
+              "Differentiate $y = \\frac{3x^2 - 4}{x+1}$",
               "Find stationary points of y = x e^{-x}"
             ]
           },
@@ -834,7 +948,7 @@
               "Use integration to solve kinematics problems."
             ],
             "examples": [
-              "∫ (2x^3 - 5x) dx",
+              "$\\int (2x^3 - 5x) dx$",
               "Find displacement from velocity function"
             ]
           }

@@ -55,6 +55,65 @@ body {
   color: var(--muted);
 }
 
+/* Language Toggle Switch */
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lang-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked+.slider {
+  background-color: var(--accent-solid);
+}
+
+input:checked+.slider:before {
+  transform: translateX(24px);
+}
+
+
 .ghost-btn,
 .primary-btn {
   border: none;
@@ -168,9 +227,11 @@ body {
   0% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-8px);
   }
+
   100% {
     transform: translateY(0px);
   }
@@ -181,6 +242,7 @@ body {
     opacity: 0.8;
     transform: translate(-50%, -50%) scale(0.8);
   }
+
   100% {
     opacity: 0;
     transform: translate(-50%, -50%) scale(1.4);
@@ -333,8 +395,129 @@ body {
   color: rgba(255, 255, 255, 0.8);
 }
 
-@media (max-width: 950px) {
+@media (max-width: 768px) {
+  .page {
+    padding: 20px 16px 80px;
+  }
+
+  .app-header {
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .app-header h1 {
+    font-size: 24px;
+    flex-wrap: wrap;
+  }
+
   .curriculum-shell {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
+
+  /* Horizontal Exam List (Tabs) */
+  .exam-list {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    gap: 12px;
+    margin: 0 -16px;
+    /* Negative margin to bleed to edges */
+    padding: 0 16px 12px;
+    /* Padding to compensate */
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* Firefox */
+  }
+
+  .exam-list::-webkit-scrollbar {
+    display: none;
+    /* Chrome/Safari */
+  }
+
+  .exam-card {
+    width: 85%;
+    /* Show part of the next card to hint scrolling */
+    min-width: 260px;
+    max-width: 300px;
+    flex-shrink: 0;
+    padding: 16px;
+    margin-right: 8px;
+    /* Add spacing between cards */
+  }
+
+  .exam-card:last-child {
+    margin-right: 16px;
+    /* Add end padding */
+  }
+
+  .exam-card:hover {
+    transform: none;
+    /* Disable hover effect on touch */
+  }
+
+  .exam-card.active {
+    border-color: var(--accent-solid);
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.1);
+  }
+
+  /* Roadmap Adjustments */
+  .roadmap-panel {
+    padding: 20px;
+    border-radius: 24px;
+  }
+
+  .roadmap-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .character-badge {
+    width: 72px;
+    height: 72px;
+  }
+
+  .domain-header {
+    padding: 16px;
+  }
+
+  .domain-content.open {
+    padding: 0 16px 20px;
+  }
+
+  .node-track {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    overflow-x: visible;
+    padding-bottom: 0;
+  }
+
+  .node-btn {
+    width: 100%;
+    min-width: 0;
+    padding: 14px;
+  }
+
+  /* Hide horizontal connector on mobile */
+  .node-btn::after {
+    display: none;
+  }
+}
+
+/* Visual Enhancement for Topic Grouping */
+.domain-block:hover {
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(149, 157, 165, 0.1);
+  /* Lift effect on hover */
+  border-color: rgba(79, 70, 229, 0.2);
+}
+
+.domain-block.expanded {
+  background: #fff;
+  border-color: rgba(79, 70, 229, 0.3);
+  box-shadow: 0 12px 32px rgba(79, 70, 229, 0.08);
 }

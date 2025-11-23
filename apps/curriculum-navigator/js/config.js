@@ -11,8 +11,8 @@ const Config = (() => {
 
   // Detect environment
   const isLocalhost = window.location.hostname === 'localhost' ||
-                      window.location.hostname === '127.0.0.1' ||
-                      window.location.hostname === '';
+    window.location.hostname === '127.0.0.1' ||
+    window.location.hostname === '';
 
   const currentEnv = isLocalhost ? ENV.DEVELOPMENT : ENV.PRODUCTION;
 
@@ -39,15 +39,15 @@ const Config = (() => {
     DEBUG: current.DEBUG,
 
     // Endpoints
-    CURRICULUMS_ENDPOINT: current.API_BASE ? `${current.API_BASE}/curriculums` : './data/curriculums.json',
-    LECTURES_ENDPOINT: (id) => current.API_BASE ? `${current.API_BASE}/lectures/${id}` : './data/lectures.json',
+    CURRICULUMS_ENDPOINT: current.USE_LOCAL_DATA ? './data/curriculums.json' : (current.API_BASE ? `${current.API_BASE}/curriculums` : './data/curriculums.json'),
+    LECTURES_ENDPOINT: (id) => current.USE_LOCAL_DATA ? './data/lectures.json' : (current.API_BASE ? `${current.API_BASE}/lectures/${id}` : './data/lectures.json'),
 
     // Paths
     LOCAL_CURRICULUMS: './data/curriculums.json',
     LOCAL_LECTURES: './data/lectures.json',
 
     // App settings
-    APP_VERSION: 'v0.3.2',
+    APP_VERSION: 'v0.3.3.07',
     APP_NAME: 'Mathiter Curriculum Navigator',
 
     log(...args) {

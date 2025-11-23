@@ -3,12 +3,81 @@ const APP_VERSION = window.Config?.APP_VERSION || 'v0.3.2';
 const API_ENDPOINT = window.Config?.CURRICULUMS_ENDPOINT || './data/curriculums.json';
 const LOCAL_DATA_URL = window.Config?.LOCAL_CURRICULUMS || './data/curriculums.json';
 const EXAM_ORDER = [
-  'igcse-mathematics',
-  'igcse-additional-mathematics-(0606)',
-  'sat-mathematics',
-  'alevel-mathematics',
-  'ap-calculus-ab/bc'
+  'sat_math_2024',
+  'ap_calculus_ab_bc',
+  'igcse_mathematics',
+  'igcse_additional_math_0606',
+  'alevel_mathematics'
 ];
+
+const TRANSLATIONS = {
+  en: {
+    appDesc: "View learning paths by exam and grade, and click nodes to enter lectures.",
+    selectDomain: "Select a domain to start",
+    selectNodeTip: "Each node is an independent lecture entrance. Click to proceed to the linked lecture/problem page.",
+    viewFlow: "View Lecture Flow",
+    level: "LEVEL",
+    step: "STEP",
+    topicPreparing: "Topics are being prepared.",
+    lessonTitleDefault: "Select a node to preview",
+    lessonSummaryDefault: "Select a domain or topic to see learning objectives, examples, and difficulty flow.",
+    objectivesLabel: "Learning Objectives: ",
+    exampleLabel: "Example Problem: ",
+    examDefaultDesc: "Select an exam to view details"
+  },
+  ko: {
+    appDesc: "시험별 · 학년별 학습 경로를 한눈에 살피고, 노드를 눌러 강의에 진입하세요.",
+    selectDomain: "도메인을 선택해 시작해 보세요",
+    selectNodeTip: "각 노드는 독립된 강의 입구입니다. 클릭하면 연계 강의/문제 페이지로 이동하게 됩니다.",
+    viewFlow: "강의 세부 플로우 보기",
+    level: "LEVEL",
+    step: "STEP",
+    topicPreparing: "토픽이 준비 중입니다.",
+    lessonTitleDefault: "노드를 선택해 강의 미리보기",
+    lessonSummaryDefault: "도메인 혹은 토픽을 선택하면 학습 목표, 예제, 난이도 흐름을 볼 수 있습니다.",
+    objectivesLabel: "학습 목표: ",
+    exampleLabel: "예시 문제: ",
+    examDefaultDesc: "선택한 시험 설명"
+  }
+};
+
+let currentLang = localStorage.getItem('mathiter-lang') || 'en';
+const langToggle = document.getElementById('langToggle');
+
+if (langToggle) {
+  langToggle.checked = currentLang === 'ko';
+  langToggle.addEventListener('change', (e) => {
+    currentLang = e.target.checked ? 'ko' : 'en';
+    localStorage.setItem('mathiter-lang', currentLang);
+    updateLanguage();
+  });
+}
+
+function t(key) {
+  return TRANSLATIONS[currentLang][key] || TRANSLATIONS['en'][key];
+}
+
+function updateLanguage() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    el.textContent = t(key);
+  });
+  renderRoadmap(); // Re-render to update dynamic content
+}
+
+function renderMath() {
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      throwOnError: false
+    });
+  }
+}
 
 const slugify = (value) =>
   (value || '')
@@ -54,6 +123,7 @@ async function loadData() {
     selectedExamId = firstExam;
     renderExamList();
     renderRoadmap();
+    updateLanguage(); // Initial language update
   }
 }
 
@@ -165,13 +235,13 @@ function renderRoadmap() {
           const topicId = slugify(topic.id || topic.topic_id || tIdx);
           const nodeId = `${domainId}-${topicId}`;
           const active = selectedTopic === nodeId;
-          const title = topic.title || topic.name || `토픽 ${tIdx + 1}`;
+          const title = topic.title || topic.name || `Topic ${tIdx + 1}`;
           const summary = topic.summary || topic.description || '';
           const objectives = topic.objectives || topic.subtopics || [];
           const examples = topic.examples || [];
           const lectureId = `${curriculumDocId}-${domainId}-${topicId}`;
           return `<button class="node-btn ${active ? 'active' : ''}" data-node="${nodeId}" data-domain="${domainId}" data-title="${title}" data-summary="${summary}" data-objectives='${JSON.stringify(objectives)}' data-examples='${JSON.stringify(examples)}' data-lecture="${lectureId}">
-              <span class="badge">STEP ${tIdx + 1}</span>
+              <span class="badge">${t('step')} ${tIdx + 1}</span>
               <strong>${title}</strong>
             </button>`;
         })
@@ -181,14 +251,14 @@ function renderRoadmap() {
       return `<div class="domain-block ${expanded ? 'expanded' : ''}">
         <button class="domain-header" data-domain="${domainId}">
           <div>
-            <p class="eyebrow">LEVEL ${idx + 1}</p>
+            <p class="eyebrow">${t('level')} ${idx + 1}</p>
             <h4>${domain.name}</h4>
             <p class="domain-summary">${domain.summary || domain.description || ''}</p>
           </div>
           <span class="chevron">${expanded ? '−' : '+'}</span>
         </button>
         <div class="domain-content ${expanded ? 'open' : ''}">
-          <div class="node-track">${nodes || '<em>토픽이 준비 중입니다.</em>'}</div>
+          <div class="node-track">${nodes || `<em>${t('topicPreparing')}</em>`}</div>
         </div>
       </div>`;
     })
@@ -203,35 +273,48 @@ function renderRoadmap() {
 
   domainRoadmapEl.querySelectorAll('.node-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
-      selectedTopic = btn.dataset.node;
+      const nodeId = btn.dataset.node;
+      const lectureId = btn.dataset.lecture;
+
+      // If already selected, navigate to lecture
+      if (selectedTopic === nodeId) {
+        const targetId = lectureId || `placeholder-${Date.now()}`;
+        window.location.href = `lecture.html?lectureId=${encodeURIComponent(targetId)}`;
+        return;
+      }
+
+      selectedTopic = nodeId;
       updateLessonPreview({
         title: btn.dataset.title,
         summary: btn.dataset.summary,
         objectives: JSON.parse(btn.dataset.objectives || '[]'),
         examples: JSON.parse(btn.dataset.examples || '[]'),
-        lectureId: btn.dataset.lecture
+        lectureId: lectureId
       });
       renderRoadmap();
     });
   });
 
   if (!selectedTopic) {
-    lessonTitleEl.textContent = '도메인을 선택해 시작해 보세요';
-    lessonSummaryEl.textContent = '각 노드는 독립된 강의 입구입니다. 클릭하면 연계 강의/문제 페이지로 이동하게 됩니다.';
+    lessonTitleEl.textContent = t('selectDomain');
+    lessonSummaryEl.textContent = t('selectNodeTip');
     lessonObjectivesEl.textContent = '';
     lessonExampleEl.textContent = '';
     lessonActionBtn.disabled = true;
   }
+
+  // Render math after DOM update
+  setTimeout(renderMath, 0);
 }
 
 function updateLessonPreview({ title, summary, objectives, examples, lectureId }) {
-  lessonTitleEl.textContent = title || '노드 상세';
-  lessonSummaryEl.textContent = summary || 'AI 튜터와 함께 학습을 시작할 수 있습니다.';
+  lessonTitleEl.textContent = title || t('lessonTitleDefault');
+  lessonSummaryEl.textContent = summary || t('lessonSummaryDefault');
   lessonObjectivesEl.textContent = objectives.length
-    ? `학습 목표: ${objectives.join(', ')}`
+    ? `${t('objectivesLabel')}${objectives.join(', ')}`
     : '';
   lessonExampleEl.textContent = examples.length
-    ? `예시 문제: ${examples[0]}`
+    ? `${t('exampleLabel')}${examples[0]}`
     : '';
   currentLectureId = lectureId;
   lessonActionBtn.disabled = false;
@@ -239,6 +322,9 @@ function updateLessonPreview({ title, summary, objectives, examples, lectureId }
     const targetId = lectureId || `placeholder-${Date.now()}`;
     window.location.href = `lecture.html?lectureId=${encodeURIComponent(targetId)}`;
   };
+
+  // Render math in the preview panel
+  setTimeout(renderMath, 0);
 }
 
 // fallback dataset for local file usage
