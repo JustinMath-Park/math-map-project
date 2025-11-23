@@ -5,6 +5,7 @@ from services.grading_service import GradingService
 from services.ai_service import AIService
 from services.user_service import UserService
 from services.curriculum_service import CurriculumService
+from services.adaptive_test_service import AdaptiveTestService
 from middleware.auth_middleware import verify_firebase_token
 from utils.logger import setup_logger
 import hmac
@@ -24,6 +25,7 @@ def create_api_routes(db, ai_client):
     ai_service = AIService(ai_client)
     user_service = UserService(db)
     curriculum_service = CurriculumService()
+    adaptive_test_service = AdaptiveTestService(db)
 
     # Wix Webhook 시크릿 키 (환경 변수에서 로드)
     WIX_WEBHOOK_SECRET = os.getenv('WIX_WEBHOOK_SECRET', '')
@@ -224,6 +226,156 @@ def create_api_routes(db, ai_client):
             }), 500
 
     # ==================== 게스트 사용자 API ====================
+
+    @api_bp.route('/api/adaptive-test/submit', methods=['POST', 'OPTIONS'])
+    def submit_adaptive_answer():
+        if request.method == 'OPTIONS':
+            return jsonify({}), 200
+            
+        try:
+            # 1. 요청 데이터 검증
+            data = request.json
+            if not data or not isinstance(data, dict):
+                return jsonify({'error': '유효하지 않은 요청 형식'}), 400
+
+            user_id = data.get('user_id')
+            session_id = data.get('session_id')
+            question_id = data.get('question_id')
+            user_answer = data.get('answer')
+
+            if not all([user_id, session_id, question_id, user_answer is not None]):
+                return jsonify({'error': '필수 필드 누락'}), 400
+
+            logger.info(f"적응형 테스트 답안 제출 수신 - Session: {session_id}, Problem: {question_id}, User: {user_id}")
+
+            # 2. Submit Answer via Service
+            result = adaptive_test_service.submit_answer(
+                session_id=session_id,
+                question_id=question_id,
+                answer=user_answer
+            )
+
+            return jsonify(result), 200
+
+        except Exception as e:
+            logger.error(f"적응형 테스트 답안 제출 실패: {e}", exc_info=True)
+            return jsonify({'error': f'서버 오류: {str(e)}'}), 500
+
+    @api_bp.route('/api/adaptive-test/start', methods=['POST', 'OPTIONS'])
+    def start_adaptive_test():
+        if request.method == 'OPTIONS':
+            return jsonify({}), 200
+            
+        try:
+            # 1. 요청 데이터 검증
+            data = request.json
+            if not data or not isinstance(data, dict):
+                return jsonify({'error': '유효하지 않은 요청 형식'}), 400
+
+            user_id = data.get('user_id')
+            if not user_id:
+                return jsonify({'error': '사용자 ID가 필요합니다.'}), 400
+
+            test_type = data.get('test_type', 'adaptive_test')
+            grade = data.get('grade')
+            curriculum_category = data.get('curriculum_category')
+            target_difficulty = data.get('target_difficulty', 'Medium')
+            num_problems = data.get('num_problems', 10)
+
+            if not grade or not curriculum_category:
+                return jsonify({'error': '필수 필드 누락: grade, curriculum_category'}), 400
+
+            logger.info(f"적응형 테스트 시작 요청 수신 - User: {user_id}, Grade: {grade}, Category: {curriculum_category}")
+
+            # 2. Start Test via Service
+            user_context = {
+                'user_id': user_id,
+                'system': 'US' if curriculum_category == 'Common Core' else 'UK', # Simple mapping
+                'grade': grade
+            }
+            
+            result = adaptive_test_service.start_test(user_context)
+
+            logger.info(f"적응형 테스트 시작 성공 - Session: {result['session_id']}")
+
+            return jsonify(result), 200
+
+        except Exception as e:
+            logger.error(f"적응형 테스트 시작 실패: {e}", exc_info=True)
+            return jsonify({'error': f'서버 오류: {str(e)}'}), 500
+
+    @api_bp.route('/api/adaptive-test/<session_id>/submit_answer', methods=['POST', 'OPTIONS'])
+    def submit_adaptive_test_answer(session_id):
+        if request.method == 'OPTIONS':
+            return jsonify({}), 200
+
+        try:
+            data = request.json
+            if not data or not isinstance(data, dict):
+                return jsonify({'error': '유효하지 않은 요청 형식'}), 400
+
+            user_id = data.get('user_id')
+            problem_id = data.get('problem_id')
+            user_answer = data.get('user_answer')
+            time_spent = data.get('time_spent', 0)
+
+            if not all([user_id, problem_id, user_answer is not None]):
+                return jsonify({'error': '필수 필드 누락: user_id, problem_id, user_answer'}), 400
+
+            logger.info(f"적응형 테스트 답안 제출 수신 - Session: {session_id}, Problem: {problem_id}, User: {user_id}")
+
+            # 1. 답안 채점 및 저장
+            result = adaptive_test_service.process_answer(
+                session_id=session_id,
+                user_id=user_id,
+                problem_id=problem_id,
+                user_answer=user_answer,
+                time_spent=time_spent
+            )
+
+            if not result:
+                return jsonify({'error': '답안 처리 실패'}), 500
+
+            # 2. 다음 문제 추천 또는 테스트 완료
+            next_problem = None
+            test_completed = False
+            final_report = None
+
+            if not result['test_completed']:
+                next_problem = adaptive_test_service.get_next_problem(
+                    session_id=session_id,
+                    user_id=user_id,
+                    grade=result['grade'],
+                    curriculum_category=result['curriculum_category'],
+                    current_difficulty=result['current_difficulty'],
+                    answered_problems=result['answered_problems']
+                )
+                if not next_problem:
+                    # 더 이상 추천할 문제가 없으면 테스트 완료 처리
+                    test_completed = True
+            else:
+                test_completed = True
+
+            if test_completed:
+                final_report = adaptive_test_service.complete_adaptive_test(session_id, user_id)
+                logger.info(f"적응형 테스트 완료 - Session: {session_id}, User: {user_id}")
+
+            return jsonify({
+                'session_id': session_id,
+                'problem_result': {
+                    'problem_id': problem_id,
+                    'is_correct': result['is_correct'],
+                    'correct_answer': result['correct_answer'],
+                    'ai_solution': result.get('ai_solution')
+                },
+                'next_problem': next_problem,
+                'test_completed': test_completed,
+                'final_report': final_report
+            }), 200
+
+        except Exception as e:
+            logger.error(f"적응형 테스트 답안 제출 실패: {e}", exc_info=True)
+            return jsonify({'error': f'서버 오류: {str(e)}'}), 500
 
     @api_bp.route('/register_guest', methods=['POST'])
     def register_guest():

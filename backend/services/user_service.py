@@ -298,7 +298,7 @@ class UserService:
 
     def create_test_session(self, user_id, test_type='level_test', grade=None,
                            curriculum_category=None, target_difficulty='Medium',
-                           time_limit=600):
+                           time_limit=600, num_problems=10):
         """
         새로운 테스트 세션 생성 (계층적 구조)
 
@@ -326,6 +326,7 @@ class UserService:
                 'curriculum_category': curriculum_category,
                 'target_difficulty': target_difficulty,
                 'time_limit': time_limit,
+                'num_problems': num_problems,
                 'total_problems': 0,
                 'correct_count': 0,
                 'score': 0.0,
