@@ -21,3 +21,10 @@ workflow.py
 
 # Claude Code
 .claude/
+
+# Firebase
+.firebase/
+
+# Python
+__pycache__/
+*.pyc

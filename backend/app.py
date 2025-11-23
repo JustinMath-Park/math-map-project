@@ -16,27 +16,39 @@ def create_app():
     
     logger.info("=== AI Math 서버 시작 ===")
     logger.info(f"Python 버전: {sys.version.split()[0]}")
+    logger.info(f"현재 작업 디렉토리: {os.getcwd()}")
+    logger.info(f"PYTHONPATH: {sys.path}")
     logger.info(f"프로젝트 ID: {Config.PROJECT_ID}")
     
     # Flask 앱 생성
     app = Flask(__name__)
     app.config.from_object(Config)
     
-    # CORS 설정 - 모든 origin 허용
-    CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=False)
-    logger.info("CORS 설정 완료 - 모든 origin 허용")
+    # CORS 설정
+    # 배포된 프론트엔드 도메인 추가
+    allowed_origins = [
+        "http://localhost:5001",
+        "http://127.0.0.1:5001",
+        "https://mathiter-level-test.web.app",
+        "https://mathiter-curriculum.web.app",
+        "https://my-mvp-backend.web.app",
+        Config.FRONTEND_URL
+    ]
+    
+    CORS(app, resources={r"/*": {"origins": allowed_origins}}, supports_credentials=True)
+    logger.info(f"CORS 설정 완료 - 허용된 Origins: {allowed_origins}")
     
     # Firebase 초기화
     db = initialize_firebase()
     if not db:
-        logger.error("Firebase 초기화 실패 - 서버를 시작할 수 없습니다.")
-        sys.exit(1)
+        logger.error("Firebase 초기화 실패 - DB 기능이 제한됩니다.")
+        # sys.exit(1) # 디버깅을 위해 서버 다운 방지
     
     # AI 클라이언트 초기화
     ai_client = initialize_ai_client()
     if not ai_client:
-        logger.error("AI 클라이언트 초기화 실패 - 서버를 시작할 수 없습니다.")
-        sys.exit(1)
+        logger.warning("AI 클라이언트 초기화 실패 - AI 기능이 제한됩니다.")
+        # sys.exit(1) # 디버깅을 위해 서버 다운 방지
     
     # API 라우트 등록
     api_bp = create_api_routes(db, ai_client)

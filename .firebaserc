@@ -8,7 +8,7 @@
         "mvp-test": [
           "mathiter-mvp-test"
         ],
-        "level-test": [
+        "adaptive-test": [
           "mathiter-level-test"
         ],
         "curriculum-navigator": [
@@ -16,5 +16,6 @@
         ]
       }
     }
-  }
+  },
+  "etags": {}
 }

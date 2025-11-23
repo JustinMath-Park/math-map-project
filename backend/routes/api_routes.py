@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify
+from flask_cors import CORS
 from google.cloud import firestore
 from services.problem_service import ProblemService
 from services.grading_service import GradingService
@@ -18,6 +19,7 @@ def create_api_routes(db, ai_client):
     """API 라우트 블루프린트 생성"""
 
     api_bp = Blueprint('api', __name__)
+    CORS(api_bp, supports_credentials=True) # Blueprint 레벨에서 CORS 적용
 
     # 서비스 초기화
     problem_service = ProblemService(db)
@@ -227,11 +229,8 @@ def create_api_routes(db, ai_client):
 
     # ==================== 게스트 사용자 API ====================
 
-    @api_bp.route('/api/adaptive-test/submit', methods=['POST', 'OPTIONS'])
+    @api_bp.route('/api/adaptive-test/submit', methods=['POST'])
     def submit_adaptive_answer():
-        if request.method == 'OPTIONS':
-            return jsonify({}), 200
-            
         try:
             # 1. 요청 데이터 검증
             data = request.json
@@ -261,11 +260,8 @@ def create_api_routes(db, ai_client):
             logger.error(f"적응형 테스트 답안 제출 실패: {e}", exc_info=True)
             return jsonify({'error': f'서버 오류: {str(e)}'}), 500
 
-    @api_bp.route('/api/adaptive-test/start', methods=['POST', 'OPTIONS'])
+    @api_bp.route('/api/adaptive-test/start', methods=['POST'])
     def start_adaptive_test():
-        if request.method == 'OPTIONS':
-            return jsonify({}), 200
-            
         try:
             # 1. 요청 데이터 검증
             data = request.json
@@ -299,16 +295,13 @@ def create_api_routes(db, ai_client):
             logger.info(f"적응형 테스트 시작 성공 - Session: {result['session_id']}")
 
             return jsonify(result), 200
-
+            
         except Exception as e:
             logger.error(f"적응형 테스트 시작 실패: {e}", exc_info=True)
             return jsonify({'error': f'서버 오류: {str(e)}'}), 500
 
-    @api_bp.route('/api/adaptive-test/<session_id>/submit_answer', methods=['POST', 'OPTIONS'])
+    @api_bp.route('/api/adaptive-test/<session_id>/submit_answer', methods=['POST'])
     def submit_adaptive_test_answer(session_id):
-        if request.method == 'OPTIONS':
-            return jsonify({}), 200
-
         try:
             data = request.json
             if not data or not isinstance(data, dict):
